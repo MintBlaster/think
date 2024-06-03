@@ -14,7 +14,9 @@
 // Constructor & Destructor
 // ----------------------------------------
 
-Game::Game() : isRunning_(false), event_(), window_("Think", 1280, 720) {}
+Game::Game()
+    : isRunning_(false), event_(), window_("Think", 1280, 720),
+      imageTexture_(nullptr) {}
 
 Game::~Game() {
   cleanUp();
@@ -34,6 +36,8 @@ bool Game::init() {
     ASSERT(false, IMG_GetError());
     return false;
   }
+
+  imageTexture_ = window_.loadTexture("../res/gfx/idle_0.png");
 
   isRunning_ = true;
   return true;
@@ -81,14 +85,16 @@ void Game::update() {
 
 void Game::render() const {
   window_.clear();
+  window_.render(imageTexture_);
   window_.display();
 }
 
 // ----------------------------------------
-// Cleanup
+// CleanupWW
 // ----------------------------------------
 
 void Game::cleanUp() const {
+  SDL_DestroyTexture(imageTexture_);
   window_.cleanUp();
   SDL_Quit();
   IMG_Quit();

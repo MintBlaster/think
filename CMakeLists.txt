@@ -33,6 +33,7 @@ add_executable(think src/main.cpp
         include/entities/Rocket.h
         include/entities/Planet.h
         include/utils/Math.h
+        include/entities/Entity.h
 )
 
 # Link SDL2 and SDL2_image libraries

@@ -28,6 +28,7 @@ private:
   bool isRunning_;
   SDL_Event event_;
   RenderWindow window_;
+  SDL_Texture *imageTexture_;
 };
 
 #endif // GAME_H
