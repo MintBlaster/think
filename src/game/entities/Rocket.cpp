@@ -22,6 +22,7 @@ void Rocket::update() {
   if (fuelAmount_ > 0) {
   }
   applyThrust(Vector2(1, 1));
+  applyThrust(Vector2(1, 1));
   position_ = position_ + velocity_;
   this->setPosition(position_);
 }
