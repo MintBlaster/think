@@ -14,11 +14,14 @@ include_directories(${SDL2_INCLUDE_DIR})
 
 # Find SDL2_image
 find_package(SDL2_image REQUIRED)
-include_directories(${SDL2_IMAGE_INCLUDE_DIR})
+include_directories(${SDL2_IMAGE_INCLUDE_DIR} include)
 
 # Add your source files
 add_executable(think src/main.cpp
-        src/think-lib.h)
+        include/think-lib.h
+        include/RenderWIndow.h
+        src/RenderWindow.cpp
+)
 
 # Link SDL2 and SDL2_image libraries
 target_link_libraries(${PROJECT_NAME} ${SDL2_LIBRARY} ${SDL2_IMAGE_LIBRARY})
