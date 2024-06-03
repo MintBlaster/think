@@ -18,7 +18,8 @@ include_directories(${SDL2_IMAGE_INCLUDE_DIR}
         include
         include/core
         include/utils
-        include/entities
+        include/game/entities
+        include/game/managers
 )
 
 # Add your source files
@@ -28,11 +29,14 @@ add_executable(think src/main.cpp
         src/core/RenderWindow.cpp
         include/core/Game.h
         src/core/Game.cpp
-        src/entities/Rocket.cpp
-        include/entities/Rocket.h
-        include/utils/Math.h
+        src/game/entities/Rocket.cpp
+        include/game/entities/Rocket.h
+        include/utils/UMath.h
         include/core/Entity.h
-        include/core/Transform.h
+        include/utils/Transform.h
+        src/core/Entity.cpp
+        include/core/EntityManager.h
+        src/core/EntityManager.cpp
 )
 
 # Link SDL2 and SDL2_image libraries

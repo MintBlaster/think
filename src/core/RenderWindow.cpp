@@ -2,8 +2,9 @@
 // Created by manish on 02-06-2024.
 //
 
-#include <SDL_image.h>
 #include "RenderWindow.h"
+#include <SDL_image.h>
+#include "EntityManager.h"
 #include "think-lib.h"
 
 // #############################################################################
@@ -58,10 +59,8 @@ void RenderWindow::clear() const {
   SDL_RenderClear(renderer_);
 }
 
-void RenderWindow::render(SDL_Texture *texture) const {
-  if (SDL_RenderCopy(renderer_, texture, nullptr, nullptr) != 0) {
-    LOG_ERROR("SDL_RenderCopy Error: %s", SDL_GetError());
-  }
+void RenderWindow::render() const {
+  EntityManager::getInstance().renderEntities(renderer_);
 }
 
 void RenderWindow::display() const {

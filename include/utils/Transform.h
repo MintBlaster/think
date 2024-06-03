@@ -8,18 +8,18 @@
 // Transform.h
 #pragma once
 
-#include "Math.h"
+#include "UMath.h"
 
 class Transform {
 public:
   explicit Transform(const Vector2& pos = Vector2(0, 0))
-    : position(pos) {}
+    : position_(pos) {}
 
-  void setPosition(float posX, float posY) { position = {posX, posY}; }
-  [[nodiscard]] Vector2 getPosition() const { return position; }
+  void setPosition(float posX, float posY) { position_ = {posX, posY}; }
+  [[nodiscard]] Vector2 getPosition() const { return position_; }
 
 private:
-  Vector2 position;
+  Vector2 position_;
 };
 
 

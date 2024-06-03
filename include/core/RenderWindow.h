@@ -14,7 +14,7 @@ public:
   SDL_Texture* loadTexture(const char *filePath) const;
   void cleanUp() const;
   void clear() const;
-  void render(SDL_Texture* texture) const;
+  void render() const;
   void display() const;
   [[nodiscard]] SDL_Renderer* getRenderer() const { return renderer_; } // Getter for renderer
 

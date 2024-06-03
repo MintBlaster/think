@@ -5,9 +5,11 @@
 #ifndef GAME_H
 #define GAME_H
 
-#include <SDL.h>
 #include "RenderWindow.h"
 #include "Rocket.h"
+#include <SDL.h>
+
+class EntityManager;
 
 // -------------------------------------------------------------------
 // Game Class
@@ -29,8 +31,10 @@ private:
   bool isRunning_;
   SDL_Event event_;
   RenderWindow window_;
-  SDL_Texture* imageTexture_;
-  Rocket* rocket_;
+  SDL_Texture* rocketTexture_;
+
+  Rocket* rocket1_;
+  Rocket* rocket2_;
 };
 
 #endif // GAME_H

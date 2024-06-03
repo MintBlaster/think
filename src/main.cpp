@@ -3,6 +3,7 @@
 //
 
 #include "Game.h"
+#include "think-lib.h"
 
 int main(int argc, char* argv[]) {
   Game game;
