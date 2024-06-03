@@ -29,11 +29,10 @@ add_executable(think src/main.cpp
         include/core/Game.h
         src/core/Game.cpp
         src/entities/Rocket.cpp
-        src/entities/Planet.cpp
         include/entities/Rocket.h
-        include/entities/Planet.h
         include/utils/Math.h
-        include/entities/Entity.h
+        include/core/Entity.h
+        include/core/Transform.h
 )
 
 # Link SDL2 and SDL2_image libraries

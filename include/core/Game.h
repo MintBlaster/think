@@ -7,6 +7,7 @@
 
 #include <SDL.h>
 #include "RenderWindow.h"
+#include "Rocket.h"
 
 // -------------------------------------------------------------------
 // Game Class
@@ -20,7 +21,7 @@ public:
 
 private:
   void processEvents();
-  static void update();
+  void update() const;
   void render() const;
   bool init();
   void cleanUp() const;
@@ -28,8 +29,8 @@ private:
   bool isRunning_;
   SDL_Event event_;
   RenderWindow window_;
-  SDL_Texture *imageTexture_;
+  SDL_Texture* imageTexture_;
+  Rocket* rocket_;
 };
 
 #endif // GAME_H
-
