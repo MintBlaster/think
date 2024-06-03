@@ -5,14 +5,17 @@
 #pragma once
 
 #include <SDL.h>
-#include <SDL_image.h>
 
-class RenderWindow
-{
+class RenderWindow {
 public:
-    RenderWindow(const char* title, int width, int height);
-    void clean_up();
+  RenderWindow(const char *title, int width, int height);
+  SDL_Texture *load_texture(const char *file_path);
+  void clean_up() const;
+  void clear();
+  void render(SDL_Texture* texture);
+  void display();
+
 private:
-    SDL_Window* window_;
-    SDL_Renderer* renderer_;
+  SDL_Window *window_;
+  SDL_Renderer *renderer_;
 };

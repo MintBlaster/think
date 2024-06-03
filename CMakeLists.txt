@@ -19,7 +19,7 @@ include_directories(${SDL2_IMAGE_INCLUDE_DIR} include)
 # Add your source files
 add_executable(think src/main.cpp
         include/think-lib.h
-        include/RenderWIndow.h
+        include/RenderWindow.h
         src/RenderWindow.cpp
 )
 
