@@ -4,9 +4,15 @@
 
 #pragma once
 
-#include "../utils/Transform.h"
-#include <SDL.h>
+#include "Component.h"
+#include "components/EntityRenderer.h"
+#include "components/Transform.h"
 
+#include <memory>
+#include <string>
+#include <vector>
+
+class Component;
 class EntityManager; // Forward declaration of EntityManager class
 
 // #############################################################################
@@ -16,24 +22,25 @@ class EntityManager; // Forward declaration of EntityManager class
 class Entity {
 public:
   // Constructor & Destructor
-  explicit Entity(const Vector2 &pos = Vector2(0, 0));
+  explicit Entity();
   virtual ~Entity();
-
   // Member Functions
   virtual void update() {}
-  void render(SDL_Renderer *sdl_renderer) const;
 
-  // Position
-  virtual void setPosition(float posX, float posY) { transform_.setPosition(posX, posY); }
-  virtual void setPosition(Vector2 newPos) { transform_.setPosition(newPos.x, newPos.y); }
-  [[nodiscard]] virtual Vector2 getPosition() const { return transform_.getPosition(); }
+  // Name
+  virtual void setName(const std::string& name) { name_ = name; }
+  virtual std::string getName() { return name_; }
 
-  // Texture
-  virtual void setTexture(SDL_Texture* texture) { texture_ = texture; }
-  [[nodiscard]] virtual SDL_Texture * getTexture() const { return texture_; }
+  // Components
+  virtual void addComponent(std::unique_ptr<Component> component);
+  virtual void removeComponent(Component* component);
+  void updateComponents();
+
+  template<typename T>
+  T* getComponent();
 
 protected:
   // Attributes
-  Transform transform_;
-  SDL_Texture* texture_;
+  std::string name_;
+  std::vector<std::unique_ptr<Component>> components_;
 };

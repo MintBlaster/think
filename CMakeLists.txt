@@ -17,6 +17,7 @@ find_package(SDL2_image REQUIRED)
 include_directories(${SDL2_IMAGE_INCLUDE_DIR}
         include
         include/core
+        include/core
         include/utils
         include/game/entities
         include/game/managers
@@ -27,16 +28,28 @@ add_executable(think src/main.cpp
         include/utils/think-lib.h
         include/core/RenderWindow.h
         src/core/RenderWindow.cpp
-        include/core/Game.h
-        src/core/Game.cpp
+        include/Game.h
+        src/Game.cpp
         src/game/entities/Rocket.cpp
         include/game/entities/Rocket.h
         include/utils/UMath.h
         include/core/Entity.h
-        include/utils/Transform.h
         src/core/Entity.cpp
         include/core/EntityManager.h
         src/core/EntityManager.cpp
+        include/core/Component.h
+        src/core/Component.cpp
+        include/core/components/EntityRenderer.h
+        src/core/components/EntityRenderer.cpp
+        include/core/components/Transform.h
+        src/core/Resource.cpp
+        include/core/Resource.h
+        src/core/resources/Texture.cpp
+        include/core/resources/Texture.h
+        src/core/ResourceManager.cpp
+        include/core/ResourceManager.h
+        src/core/ServiceLocator.cpp
+        include/core/ServiceLocator.h
 )
 
 # Link SDL2 and SDL2_image libraries

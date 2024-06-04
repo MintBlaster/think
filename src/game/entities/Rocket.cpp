@@ -9,10 +9,19 @@
 // Constructor & Destructor
 // ----------------------------------------
 
-Rocket::Rocket(float posX, float posY, float fuelAmount, float engineThrust)
-    : Entity(Vector2(posX, posY)), velocity_(),
-      fuelAmount_(fuelAmount), engineThrust_(engineThrust / 100.0f), texture_(nullptr) {}
+Rocket::Rocket() {
 
+  SDL_Texture* texture_ = window_.loadTexture("../res/gfx/idle_0.png");
+  if (!rocketTexture) {
+    LOG_ERROR("Failed to load rocket texture.");
+    return false;
+  }
+
+  texture_ = window::load_texture
+
+  Rocket::addComponent(Transform::createInstance());
+  Rocket::addComponent(EntityRenderer::createInstance());
+}
 
 // ----------------------------------------
 // Update
@@ -24,7 +33,6 @@ void Rocket::update() {
   applyThrust(Vector2(1, 1));
   applyThrust(Vector2(1, 1));
   position_ = position_ + velocity_;
-  this->setPosition(position_);
 }
 
 // ----------------------------------------

@@ -5,11 +5,14 @@
 #ifndef GAME_H
 #define GAME_H
 
-#include "RenderWindow.h"
-#include "Rocket.h"
 #include <SDL.h>
+#include <memory>
+#include "core/RenderWindow.h"
+#include "game/entities/Rocket.h"
 
 class EntityManager;
+class ResourceManager;
+class Component;
 
 // #############################################################################
 //                           Game Class Declaration
@@ -27,7 +30,7 @@ public:
 private:
   // Helper Functions
   void processEvents();
-  void update() const;
+  void update();
   void render() const;
   bool init();
   void cleanUp() const;
@@ -36,9 +39,10 @@ private:
   bool isRunning_;
   SDL_Event event_;
   RenderWindow window_;
-  SDL_Texture* rocketTexture_;
-  Rocket* rocket1_;
-  Rocket* rocket2_;
+
+  // testing
+  std::unique_ptr<Rocket>rocket1;
+  std::unique_ptr<Rocket> rocket2;
 };
 
 #endif // GAME_H

@@ -52,6 +52,6 @@ void EntityManager::updateEntities() {
 void EntityManager::renderEntities(SDL_Renderer* renderer) {
   // Render all entities
   for (Entity* entity : entities_) {
-    entity->render(renderer);
+    //entity->render(renderer);
   }
 }

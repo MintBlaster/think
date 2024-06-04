@@ -6,7 +6,7 @@
 #define ROCKET_H
 
 #include "Entity.h"
-#include <SDL.h>
+#include "UMath.h"
 
 // #############################################################################
 //                            Rocket Class Declaration
@@ -14,8 +14,7 @@
 
 class Rocket final : public Entity {
 public:
-  Rocket(float posX, float posY, float fuelAmount, float engineThrust);
-
+  Rocket();
 private:
   // Update function override
   void update() override;
@@ -23,15 +22,13 @@ private:
   // Apply thrust function
   void applyThrust(const Vector2& direction);
 
-public:
-  // Fuel amount and engine thrust variables
-  float fuelAmount_;
-  float engineThrust_;
-
 private:
   // Velocity, position, and texture variables
+  float fuelAmount_ = 0;
+  float engineThrust_ = 0;
   Vector2 velocity_;
   Vector2 position_;
+
   SDL_Texture* texture_;
 };
 

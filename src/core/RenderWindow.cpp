@@ -5,6 +5,7 @@
 #include "RenderWindow.h"
 #include <SDL_image.h>
 #include "EntityManager.h"
+#include "ServiceLocator.h"
 #include "think-lib.h"
 
 // #############################################################################
@@ -23,6 +24,8 @@ RenderWindow::RenderWindow(const char *title, int width, int height)
   }
 
   renderer_ = SDL_CreateRenderer(window_, -1, SDL_RENDERER_ACCELERATED);
+  ServiceLocator::provideRenderer(renderer_);
+
   if (renderer_ == nullptr) {
     LOG_ERROR("SDL_CreateRenderer Error: %s", SDL_GetError());
   }
@@ -35,7 +38,7 @@ RenderWindow::RenderWindow(const char *title, int width, int height)
 SDL_Texture* RenderWindow::loadTexture(const char *filePath) const {
   SDL_Texture* texture = IMG_LoadTexture(renderer_, filePath);
   if (texture == nullptr) {
-    LOG_ERROR("IMG_LoadTexture Error: %s", IMG_GetError());
+    ASSERT("IMG_LoadTexture Error: %s", IMG_GetError());
   } else {
     LOG_TRACE("Texture loaded: %s", filePath);
   }
