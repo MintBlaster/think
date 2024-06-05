@@ -49,6 +49,7 @@ add_executable(think src/main.cpp
         include/core/ResourceManager.h
         src/core/ServiceLocator.cpp
         include/core/ServiceLocator.h
+        include/utils/UTime.h
 )
 
 # Link SDL2 and SDL2_image libraries

@@ -31,11 +31,15 @@ public:
 
 private:
   // Helper Functions
+  void physicsUpdate();
   void processEvents();
   void update();
   void render() const;
   bool init();
   void cleanUp() const;
+
+  // constants
+  const float FIXED_UPDATE_PER_SECONDS = 30.0f;
 
   // Attributes
   bool isRunning_;

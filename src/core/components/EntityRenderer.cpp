@@ -41,7 +41,5 @@ void EntityRenderer::render() {
     // Render the texture
     if (SDL_RenderCopy(ServiceLocator::getRenderer(), texture, nullptr, &dstRect) != 0) {
       LOG_ERROR("SDL_RenderCopy Error: %s", SDL_GetError());
-    } else {
-      LOG_TRACE("Texture %s rendered at : %s", textureName_.c_str(), transform_->getPosition().toString().c_str());
     }
 }

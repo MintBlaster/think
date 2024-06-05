@@ -23,6 +23,7 @@ public:
   // Member Functions
   void addEntity(Entity* entity);
   void removeEntity(Entity* entity);
+  void physicsUpdateEntities();
   void updateEntities();
   void renderEntities();
 

@@ -30,17 +30,22 @@ void EntityManager::addEntity(Entity* entity) {
   LOG_TRACE("Entity added. Total entities: %d", entities_.size());
 }
 
-void EntityManager::removeEntity(Entity* entity) {
+void EntityManager::removeEntity(Entity *entity) {
   // Remove the entity from the vector
-  entities_.erase(std::remove_if(entities_.begin(), entities_.end(), [entity](const Entity * e) {
-      return e == entity;
-  }), entities_.end());
+  entities_.erase(std::remove_if(entities_.begin(), entities_.end(), [entity](const Entity *e) { return e == entity; }),
+                  entities_.end());
   LOG_TRACE("Entity removed. Total entities: %d", entities_.size());
 }
 
 // ----------------------------------------
 // Update and Render
 // ----------------------------------------
+
+void EntityManager::physicsUpdateEntities() {
+  for (Entity *entity: entities_) {
+    entity->physicsUpdate();
+  }
+}
 
 void EntityManager::updateEntities() {
   // Update all entities

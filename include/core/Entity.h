@@ -25,6 +25,7 @@ public:
   explicit Entity();
   virtual ~Entity();
   // Member Functions
+  virtual void physicsUpdate() {}
   virtual void update() { updateComponents(); }
   virtual void render() { renderComponents(); }
 

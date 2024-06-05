@@ -4,11 +4,14 @@
 
 #include "Game.h"
 #include <SDL_image.h>
+#include <chrono>
 #include "EntityManager.h"
-#include "think-lib.h"
 #include "ResourceManager.h"
 #include "ServiceLocator.h"
 #include "components/Transform.h"
+#include "think-lib.h"
+
+#include "UTime.h"
 
 // #############################################################################
 //                             Game Class Implementation
@@ -61,7 +64,21 @@ void Game::run() {
   if (!init()) {
     return;
   }
+  float accumulator = 0.0f;
+  float currentTime = UTime::getTime();
+
   while (isRunning_) {
+
+    float newTime = UTime::getTime();
+    float frameRateTime = newTime - currentTime;
+    currentTime = newTime;
+
+    accumulator += frameRateTime;
+    while (accumulator >= (1 / FIXED_UPDATE_PER_SECONDS)) {
+      physicsUpdate();
+      accumulator -= (1 / FIXED_UPDATE_PER_SECONDS);
+    }
+
     processEvents();
     update();
     render();
@@ -84,7 +101,14 @@ void Game::processEvents() {
 // Game State Update
 // -----------------------------------------------------------------------------
 
-void Game::update() { EntityManager::getInstance().updateEntities(); }
+void Game::physicsUpdate() {
+  EntityManager::getInstance().physicsUpdateEntities();
+}
+
+
+void Game::update() {
+  EntityManager::getInstance().updateEntities();
+}
 
 // -----------------------------------------------------------------------------
 // Rendering

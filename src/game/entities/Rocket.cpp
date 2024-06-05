@@ -5,8 +5,10 @@
 #include "Rocket.h"
 
 #include "ResourceManager.h"
+#include "UTime.h"
 #include "components/EntityRenderer.h"
 #include "components/Transform.h"
+#include "think-lib.h"
 
 // ----------------------------------------
 // Constructor & Destructor
@@ -33,14 +35,17 @@ Rocket::Rocket() {
 // Update
 // ----------------------------------------
 
-void Rocket::update() {
-  Entity::update();
+void Rocket::physicsUpdate() {
   transform_->setPosition(position_);
-
   if (fuelAmount_ > 0) {
   }
   applyThrust(Vector2(1, 1));
   position_ = position_ + velocity_;
+  LOG_TRACE(velocity_.toString().c_str());
+}
+
+void Rocket::update() {
+  // noop
 }
 
 // ----------------------------------------

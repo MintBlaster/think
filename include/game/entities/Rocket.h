@@ -27,6 +27,8 @@ public:
   void setEngineThrust(float thrust) { engineThrust_ = thrust; }
 
 private:
+  // Physics update function override
+  void physicsUpdate() override;
   // Update function override
   void update() override;
   // Apply thrust function
