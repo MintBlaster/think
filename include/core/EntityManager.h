@@ -5,13 +5,14 @@
 #ifndef ENTITYMANAGER_H
 #define ENTITYMANAGER_H
 
-#include <SDL.h>
+#pragma once
+
 #include <vector>
 
 class Entity; // Forward declaration of Entity class
 
 // #############################################################################
-//                        EntityManager Class Declaration
+//                     EntityManager Class Declaration
 // #############################################################################
 
 class EntityManager {
@@ -23,7 +24,7 @@ public:
   void addEntity(Entity* entity);
   void removeEntity(Entity* entity);
   void updateEntities();
-  void renderEntities(SDL_Renderer* renderer);
+  void renderEntities();
 
   // Deleted Constructors
   EntityManager(const EntityManager&) = delete;

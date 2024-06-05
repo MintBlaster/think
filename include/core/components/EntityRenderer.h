@@ -5,26 +5,32 @@
 #ifndef ENTITYRENDERER_H
 #define ENTITYRENDERER_H
 
+#pragma once
+
 #include "Component.h"
-#include "Transform.h"
+#include "components/Transform.h"
+#include <string>
 
 // #############################################################################
-//                    Entity Renderer Implementation
+//                       EntityRenderer Class Declaration
 // #############################################################################
 
 class EntityRenderer : public Component {
-
 public:
+  // Constructor
   explicit EntityRenderer();
 
-  void setTexture(const std::string& name) {textureName_ = name;}
+  // Setter
+  void setTexture(const std::string& name) { textureName_ = name; }
 
 private:
-  void render() const;
+  // Member Functions
+  void satisfyDependencies() override;
+  void render() override;
 
-private:
+  // Attributes
   std::string textureName_;
   Transform* transform_;
 };
 
-#endif //ENTITYRENDERER_H
+#endif // ENTITYRENDERER_H

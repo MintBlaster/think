@@ -2,12 +2,12 @@
 // Created by manish on 03-06-2024.
 //
 
+#ifndef ENTITY_H
+#define ENTITY_H
+
 #pragma once
 
 #include "Component.h"
-#include "components/EntityRenderer.h"
-#include "components/Transform.h"
-
 #include <memory>
 #include <string>
 #include <vector>
@@ -16,7 +16,7 @@ class Component;
 class EntityManager; // Forward declaration of EntityManager class
 
 // #############################################################################
-//                           Entity Class Declaration
+//                               Entity Class Declaration
 // #############################################################################
 
 class Entity {
@@ -25,7 +25,8 @@ public:
   explicit Entity();
   virtual ~Entity();
   // Member Functions
-  virtual void update() {}
+  virtual void update() { updateComponents(); }
+  virtual void render() { renderComponents(); }
 
   // Name
   virtual void setName(const std::string& name) { name_ = name; }
@@ -35,6 +36,7 @@ public:
   virtual void addComponent(std::unique_ptr<Component> component);
   virtual void removeComponent(Component* component);
   void updateComponents();
+  void renderComponents();
 
   template<typename T>
   T* getComponent();
@@ -44,3 +46,19 @@ protected:
   std::string name_;
   std::vector<std::unique_ptr<Component>> components_;
 };
+
+// #############################################################################
+//                               Templates Implementation
+// #############################################################################
+
+template <typename T>
+T* Entity::getComponent() {
+  for (const auto& component : components_) {
+    if (T* castedComponent = dynamic_cast<T*>(component.get())) {
+      return castedComponent;
+    }
+  }
+  return nullptr;
+}
+
+#endif // ENTITY_H

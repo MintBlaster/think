@@ -5,6 +5,8 @@
 #ifndef GAME_H
 #define GAME_H
 
+#pragma once
+
 #include <SDL.h>
 #include <memory>
 #include "core/RenderWindow.h"
@@ -40,8 +42,8 @@ private:
   SDL_Event event_;
   RenderWindow window_;
 
-  // testing
-  std::unique_ptr<Rocket>rocket1;
+  // Testing
+  std::unique_ptr<Rocket> rocket1;
   std::unique_ptr<Rocket> rocket2;
 };
 

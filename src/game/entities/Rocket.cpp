@@ -3,34 +3,42 @@
 //
 
 #include "Rocket.h"
-#include <SDL.h>
+
+#include "ResourceManager.h"
+#include "components/EntityRenderer.h"
+#include "components/Transform.h"
 
 // ----------------------------------------
 // Constructor & Destructor
 // ----------------------------------------
 
 Rocket::Rocket() {
+  // Add Transform and EntityRenderer components
+  Rocket::addComponent(std::make_unique<Transform>());
+  Rocket::addComponent(std::make_unique<EntityRenderer>());
 
-  SDL_Texture* texture_ = window_.loadTexture("../res/gfx/idle_0.png");
-  if (!rocketTexture) {
-    LOG_ERROR("Failed to load rocket texture.");
-    return false;
-  }
+  // Get pointers to the Transform and EntityRenderer components
+  transform_ = getComponent<Transform>();
+  entityRenderer_ = getComponent<EntityRenderer>();
 
-  texture_ = window::load_texture
+  // Load the rocket texture
+  ResourceManager::getInstance().loadTexture("rocket_Texture", "gfx/idle_0.png");
+  entityRenderer_->setTexture("rocket_Texture");
 
-  Rocket::addComponent(Transform::createInstance());
-  Rocket::addComponent(EntityRenderer::createInstance());
+  transform_->setPosition(50, 50);
 }
+
 
 // ----------------------------------------
 // Update
 // ----------------------------------------
 
 void Rocket::update() {
+  Entity::update();
+  transform_->setPosition(position_);
+
   if (fuelAmount_ > 0) {
   }
-  applyThrust(Vector2(1, 1));
   applyThrust(Vector2(1, 1));
   position_ = position_ + velocity_;
 }

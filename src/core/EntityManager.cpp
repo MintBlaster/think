@@ -16,7 +16,7 @@
 // Singleton Instance
 // ----------------------------------------
 
-EntityManager& EntityManager::getInstance() {
+EntityManager &EntityManager::getInstance() {
   static EntityManager instance;
   return instance;
 }
@@ -44,14 +44,13 @@ void EntityManager::removeEntity(Entity* entity) {
 
 void EntityManager::updateEntities() {
   // Update all entities
-  for (Entity* entity : entities_) {
+  for (Entity *entity: entities_) {
     entity->update();
   }
 }
-
-void EntityManager::renderEntities(SDL_Renderer* renderer) {
-  // Render all entities
-  for (Entity* entity : entities_) {
-    //entity->render(renderer);
+void EntityManager::renderEntities() {
+  // Update all entities
+  for (Entity *entity: entities_) {
+    entity->render();
   }
 }

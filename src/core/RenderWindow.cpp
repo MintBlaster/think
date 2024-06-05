@@ -4,7 +4,7 @@
 
 #include "RenderWindow.h"
 #include <SDL_image.h>
-#include "EntityManager.h"
+
 #include "ServiceLocator.h"
 #include "think-lib.h"
 
@@ -39,8 +39,6 @@ SDL_Texture* RenderWindow::loadTexture(const char *filePath) const {
   SDL_Texture* texture = IMG_LoadTexture(renderer_, filePath);
   if (texture == nullptr) {
     ASSERT("IMG_LoadTexture Error: %s", IMG_GetError());
-  } else {
-    LOG_TRACE("Texture loaded: %s", filePath);
   }
   return texture;
 }
@@ -62,10 +60,4 @@ void RenderWindow::clear() const {
   SDL_RenderClear(renderer_);
 }
 
-void RenderWindow::render() const {
-  EntityManager::getInstance().renderEntities(renderer_);
-}
-
-void RenderWindow::display() const {
-  SDL_RenderPresent(renderer_);
-}
+void RenderWindow::display() const { SDL_RenderPresent(renderer_); }

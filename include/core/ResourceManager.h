@@ -5,7 +5,8 @@
 #ifndef RESOURCEMANAGER_H
 #define RESOURCEMANAGER_H
 
-#include "RenderWindow.h"
+#pragma once
+
 #include "resources/Texture.h"
 #include <memory>
 #include <unordered_map>
@@ -16,7 +17,7 @@
 
 class ResourceManager {
 public:
-  // singleton
+  // Singleton
   static ResourceManager& getInstance();
 
   // Deleted Constructors
@@ -30,8 +31,9 @@ public:
   void unloadTexture(const std::string &name);
 
 private:
-  // constructor
-    ResourceManager() = default;
+  // Constructor
+  ResourceManager() = default;
+
   // Attributes
   std::unordered_map<std::string, std::unique_ptr<Texture>> textures_;
 };

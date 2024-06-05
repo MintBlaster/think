@@ -20,7 +20,6 @@ include_directories(${SDL2_IMAGE_INCLUDE_DIR}
         include/core
         include/utils
         include/game/entities
-        include/game/managers
 )
 
 # Add your source files

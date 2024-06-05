@@ -5,6 +5,8 @@
 #ifndef RESOURCE_H
 #define RESOURCE_H
 
+#pragma once
+
 #include <string>
 
 // #############################################################################
@@ -31,4 +33,4 @@ protected:
   std::string path_;
 };
 
-#endif //RESOURCE_H
+#endif // RESOURCE_H

@@ -2,27 +2,33 @@
 // Created by manish on 04-06-2024.
 //
 
-#ifndef TRANSFORMCOMPONENT_H
-#define TRANSFORMCOMPONENT_H
+#ifndef TRANSFORM_H
+#define TRANSFORM_H
+
+#pragma once
+
 #include "Component.h"
 #include "UMath.h"
 
 // #############################################################################
-//                       Transform Componenet Implementation
+//                        Transform Class Declaration
 // #############################################################################
 
 class Transform : public Component {
 public:
+  // Constructor
   explicit Transform() = default;
 
   // Getters and Setters
   void setPosition(float posX, float posY) { position_ = {posX, posY}; }
+  void setPosition(Vector2 position) { position_ = position; }
   [[nodiscard]] Vector2 getPosition() const { return position_; }
 
+  std::string getName() override { return "Transform"; }
+
 private:
-  // Position vector
+  // Attributes
   Vector2 position_ = Vector2(0, 0);
 };
 
-
-#endif //TRANSFORMCOMPONENT_H
+#endif // TRANSFORM_H

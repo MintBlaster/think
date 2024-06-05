@@ -1,18 +1,19 @@
 //
-// Created by manish on 03-06-2024.
+// Created by manish on 04-06-2024.
 //
 
 #include "Entity.h"
-#include "EntityManager.h"
 #include <algorithm>
+#include "Component.h"
+#include "EntityManager.h"
 
 // #############################################################################
-//                        Entity Class Implementation
+//                             Entity Class Implementation
 // #############################################################################
 
-// ----------------------------------------
+// -----------------------------------------------------------------------------
 // Constructor & Destructor
-// ----------------------------------------
+// -----------------------------------------------------------------------------
 
 Entity::Entity() {
   // Add entity to the entity manager
@@ -33,28 +34,24 @@ void Entity::addComponent(std::unique_ptr<Component> component) {
   components_.push_back(std::move(component));
 }
 
-void Entity::removeComponent(Component *component) {
-  if (const auto it =
-          std::remove_if(components_.begin(), components_.end(),
-                         [component](const std::unique_ptr<Component> &e) {
-                           return e.get() == component;
-                         });
+void Entity::removeComponent(Component* component) {
+  if (const auto it = std::remove_if(components_.begin(), components_.end(),
+                                      [component](const std::unique_ptr<Component>& e) {
+                                          return e.get() == component;
+                                      });
       it != components_.end()) {
     components_.erase(it, components_.end());
-  }
+      }
 }
+
 void Entity::updateComponents() {
-  for (const std::unique_ptr<Component> component : components_) {
-      component->update();
+  for (const auto &component: components_) {
+    component->update();
   }
 }
 
-template <typename T>
-T* Entity::getComponent() {
-  for (const auto& component : components_) {
-    if (T* castedComponent = dynamic_cast<T*>(component.get())) {
-      return castedComponent;
-    }
+void Entity::renderComponents() {
+  for (const auto &component: components_) {
+    component->render();
   }
-  return nullptr;
 }

@@ -16,7 +16,7 @@
 class Texture : public Resource {
 public:
   // Constructor
-  Texture(const std::string &name, const std::string &path, RenderWindow& renderWindow);
+  Texture(const std::string &name, const std::string &path, RenderWindow* renderWindow);
 
   // Override Member Function
   void setPath(const std::string& path) override;
@@ -31,7 +31,10 @@ private:
 protected:
   // Attributes
   SDL_Texture* texture_;
-  RenderWindow& renderWindow_;
-};
+  RenderWindow* renderWindow_;
+
+private:
+  std::string BASE_TEXTURE_DIR = "../res/";
+ };
 
 #endif //TEXTURE_H

@@ -2,104 +2,106 @@
 // Created by manish on 03-06-2024.
 //
 
-#include "../include/Game.h"
+#include "Game.h"
 #include <SDL_image.h>
-#include "../include/core/EntityManager.h"
-#include "../include/utils/think-lib.h"
+#include "EntityManager.h"
+#include "think-lib.h"
 #include "ResourceManager.h"
 #include "ServiceLocator.h"
+#include "components/Transform.h"
 
 // #############################################################################
-//                           Game Class Implementation
+//                             Game Class Implementation
 // #############################################################################
 
-// ----------------------------------------
-// Constructor & Destructor
-// ----------------------------------------
+// -----------------------------------------------------------------------------
+// Constructor and Destructors
+// -----------------------------------------------------------------------------
 
-Game::Game() :
-    isRunning_(false), event_(), window_("Think", 1280, 720) {}
+Game::Game() : isRunning_(false), event_(), window_("Think", 1280, 720), rocket1(nullptr), rocket2(nullptr) {}
 
 Game::~Game() { cleanUp(); }
 
-// ----------------------------------------
+// -----------------------------------------------------------------------------
 // Initialization
-// ----------------------------------------
+// -----------------------------------------------------------------------------
 
 bool Game::init() {
   if (SDL_Init(SDL_INIT_VIDEO) != 0) {
     LOG_ERROR("SDL_Init Error: %s", SDL_GetError());
     return false;
-    }
-    if (IMG_Init(IMG_INIT_PNG) == 0) {
-      LOG_ERROR("IMG_Init Error: %s", IMG_GetError());
-      return false;
-    }
-    ServiceLocator::provideWindow(&window_);
+  }
+  if (IMG_Init(IMG_INIT_PNG) == 0) {
+    LOG_ERROR("IMG_Init Error: %s", IMG_GetError());
+    return false;
+  }
 
-    ResourceManager::getInstance().loadTexture("Rocket Texture", "../res/gfx/idle_0.png");
+  ServiceLocator::provideWindow(&window_);
 
-    rocket1 = std::make_unique<Rocket>();
-    rocket2 = std::make_unique<Rocket>();
+  rocket1 = std::make_unique<Rocket>();
+  rocket2 = std::make_unique<Rocket>();
 
-    rocket1->setName("Rocket 1");
-    rocket2->setName("Rocket 2");
+  rocket1->setFuelAmount(.5);
+  rocket1->setEngineThrust(.5);
 
-    isRunning_ = true;
-    LOG_TRACE("Game initialization successful");
+  rocket2->setFuelAmount(.0002);
+  rocket2->setEngineThrust(.00978);
 
-    return true;
+  isRunning_ = true;
+  LOG_TRACE("Game initialization successful");
+
+  return true;
 }
 
-// ----------------------------------------
+// -----------------------------------------------------------------------------
 // Game Loop
-// ----------------------------------------
+// -----------------------------------------------------------------------------
 
 void Game::run() {
-    if (!init()) {
-        return;
-    }
-    while (isRunning_) {
-        processEvents();
-        update();
-        render();
-    }
+  if (!init()) {
+    return;
+  }
+  while (isRunning_) {
+    processEvents();
+    update();
+    render();
+  }
 }
 
-// ----------------------------------------
+// -----------------------------------------------------------------------------
 // Event Processing
-// ----------------------------------------
+// -----------------------------------------------------------------------------
 
 void Game::processEvents() {
-    while (SDL_PollEvent(&event_)) {
-        if (event_.type == SDL_QUIT) {
-            isRunning_ = false;
-        }
+  while (SDL_PollEvent(&event_)) {
+    if (event_.type == SDL_QUIT) {
+      isRunning_ = false;
     }
+  }
 }
 
-// ----------------------------------------
+// -----------------------------------------------------------------------------
 // Game State Update
-// ----------------------------------------
+// -----------------------------------------------------------------------------
 
 void Game::update() { EntityManager::getInstance().updateEntities(); }
 
-// ----------------------------------------
+// -----------------------------------------------------------------------------
 // Rendering
-// ----------------------------------------
+// -----------------------------------------------------------------------------
 
 void Game::render() const {
-    window_.clear();
-    window_.render();
-    window_.display();
+  window_.clear();
+  EntityManager::getInstance().renderEntities();
+  window_.display();
 }
 
-// ----------------------------------------
-// Cleanup
-// ----------------------------------------
+// -----------------------------------------------------------------------------
+// Clean Up
+// -----------------------------------------------------------------------------
 
 void Game::cleanUp() const {
-    window_.cleanUp();
-    SDL_Quit();
-    IMG_Quit();
+  window_.cleanUp();
+  SDL_Quit();
+  IMG_Quit();
 }

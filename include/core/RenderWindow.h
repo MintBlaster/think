@@ -5,6 +5,8 @@
 #ifndef RENDERWINDOW_H
 #define RENDERWINDOW_H
 
+#pragma once
+
 #include <SDL.h>
 
 // #############################################################################
@@ -20,9 +22,7 @@ public:
   SDL_Texture* loadTexture(const char *filePath) const;
   void cleanUp() const;
   void clear() const;
-  void render() const;
   void display() const;
-  [[nodiscard]] SDL_Renderer* getRenderer() const { return renderer_; } // Getter for renderer
 
 private:
   // Attributes

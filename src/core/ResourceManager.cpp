@@ -1,18 +1,26 @@
+//
 // Created by manish on 04-06-2024.
+//
 
 #include "../../include/core/ResourceManager.h"
-
 #include "ServiceLocator.h"
 
 // #############################################################################
 //                       ResourceManager Class Implementation
 // #############################################################################
 
+// -----------------------------------------------------------------------------
+// Singleton Instance
+// -----------------------------------------------------------------------------
+
 ResourceManager& ResourceManager::getInstance() {
   static ResourceManager instance;
   return instance;
 }
 
+// -----------------------------------------------------------------------------
+// Texture Management
+// -----------------------------------------------------------------------------
 
 void ResourceManager::loadTexture(const std::string &name, const std::string &path) {
   // Check if the texture is already loaded
