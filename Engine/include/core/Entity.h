@@ -13,7 +13,6 @@
 #include <vector>
 
 class Component;
-class EntityManager; // Forward declaration of EntityManager class
 
 // #############################################################################
 //                               Entity Class Declaration
@@ -24,6 +23,7 @@ public:
   // Constructor & Destructor
   explicit Entity();
   virtual ~Entity();
+
   // Member Functions
   virtual void physicsUpdate() {}
   virtual void update() { updateComponents(); }

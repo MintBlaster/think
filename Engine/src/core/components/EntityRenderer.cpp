@@ -5,7 +5,7 @@
 #include "components/EntityRenderer.h"
 #include "ResourceManager.h"
 #include "ServiceLocator.h"
-#include "think-lib.h"
+#include "UDebug.h"
 
 // #############################################################################
 //                       EntityRenderer Class Implementation
@@ -21,6 +21,7 @@ EntityRenderer::EntityRenderer() : transform_(nullptr) {}
 // Dependencies Satisfaction
 // -----------------------------------------------------------------------------
 
+// Gets transform to get the location, rotation and scale to render the texture.
 void EntityRenderer::satisfyDependencies() {
   if (owner_->getComponent<Transform>() == nullptr) {
     owner_->addComponent(std::make_unique<Transform>());
@@ -32,6 +33,7 @@ void EntityRenderer::satisfyDependencies() {
 // Rendering
 // -----------------------------------------------------------------------------
 
+// It retrieves texture from the resource manager and renders it.
 void EntityRenderer::render() {
     SDL_Texture* texture = ResourceManager::getInstance().getTexture(textureName_);
     if (texture == nullptr) return;
@@ -40,6 +42,6 @@ void EntityRenderer::render() {
 
     // Render the texture
     if (SDL_RenderCopy(ServiceLocator::getRenderer(), texture, nullptr, &dstRect) != 0) {
-      LOG_ERROR("SDL_RenderCopy Error: %s", SDL_GetError());
+      PANIC("SDL_RenderCopy Error: %s", SDL_GetError());
     }
 }

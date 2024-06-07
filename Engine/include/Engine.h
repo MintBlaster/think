@@ -8,9 +8,8 @@
 #pragma once
 
 #include <SDL.h>
-#include <memory>
+#include "Engine.h"
 #include "core/RenderWindow.h"
-#include "game/entities/Rocket.h"
 
 class EntityManager;
 class ResourceManager;
@@ -20,16 +19,16 @@ class Component;
 //                           Game Class Declaration
 // #############################################################################
 
-class Game {
-public:
+class Engine {
+  public:
   // Constructor & Destructor
-  Game();
-  ~Game();
+  Engine();
+  ~Engine();
 
   // Member Functions
   void run();
 
-private:
+  private:
   // Helper Functions
   void physicsUpdate();
   void processEvents();
@@ -45,10 +44,6 @@ private:
   bool isRunning_;
   SDL_Event event_;
   RenderWindow window_;
-
-  // Testing
-  std::unique_ptr<Rocket> rocket1;
-  std::unique_ptr<Rocket> rocket2;
 };
 
 #endif // GAME_H

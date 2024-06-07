@@ -10,12 +10,12 @@
 #include <chrono>
 
 // #############################################################################
-//                               UTime Implementations
+//                         Time Utility Implementations
 // #############################################################################
 
 class UTime {
 public:
-  // Returns the current time in seconds
+  /// <summary> Returns the current time in seconds </summary>
   static float getTime() {
     using namespace std::chrono;
 
@@ -25,7 +25,7 @@ public:
     return timeSpan.count();
   }
 
-  // Returns the time that has been elapsed between current and previous frame.
+  /// <summary> Returns the time that has been elapsed between current and previous frame. </summary>
   static float getDeltaTime() {
     static float lastTime = getTime();
     float currentTime = getTime();

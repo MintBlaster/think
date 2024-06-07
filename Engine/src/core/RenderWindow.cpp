@@ -6,7 +6,7 @@
 #include <SDL_image.h>
 
 #include "ServiceLocator.h"
-#include "think-lib.h"
+#include "UDebug.h"
 
 // #############################################################################
 //                           RenderWindow Class Implementation
@@ -20,14 +20,14 @@ RenderWindow::RenderWindow(const char *title, int width, int height)
     : window_(nullptr), renderer_(nullptr) {
   window_ = SDL_CreateWindow(title, SDL_WINDOWPOS_UNDEFINED, SDL_WINDOWPOS_UNDEFINED, width, height, SDL_WINDOW_SHOWN);
   if (window_ == nullptr) {
-    LOG_ERROR("SDL_CreateWindow Error: %s", SDL_GetError());
+    PANIC("SDL_CreateWindow Error: %s", SDL_GetError());
   }
 
   renderer_ = SDL_CreateRenderer(window_, -1, SDL_RENDERER_ACCELERATED);
   ServiceLocator::provideRenderer(renderer_);
 
   if (renderer_ == nullptr) {
-    LOG_ERROR("SDL_CreateRenderer Error: %s", SDL_GetError());
+    PANIC("SDL_CreateRenderer Error: %s", SDL_GetError());
   }
 }
 
@@ -35,10 +35,11 @@ RenderWindow::RenderWindow(const char *title, int width, int height)
 // Texture Loading
 // ----------------------------------------
 
+/// <summary> It will laod a texture with given path and will return it. </summary>
 SDL_Texture* RenderWindow::loadTexture(const char *filePath) const {
   SDL_Texture* texture = IMG_LoadTexture(renderer_, filePath);
   if (texture == nullptr) {
-    ASSERT("IMG_LoadTexture Error: %s", IMG_GetError());
+    CHECK("IMG_LoadTexture Error: %s", IMG_GetError());
   }
   return texture;
 }
@@ -47,6 +48,7 @@ SDL_Texture* RenderWindow::loadTexture(const char *filePath) const {
 // Cleanup
 // ----------------------------------------
 
+/// <summary> Clean up the rendered window. </summary>
 void RenderWindow::cleanUp() const {
   SDL_DestroyRenderer(renderer_);
   SDL_DestroyWindow(window_);
@@ -56,8 +58,10 @@ void RenderWindow::cleanUp() const {
 // Rendering Functions
 // ----------------------------------------
 
+/// <summary> Clears the rendered window. </summary>
 void RenderWindow::clear() const {
   SDL_RenderClear(renderer_);
 }
 
+/// <summary> Display the rendered window. </summary
 void RenderWindow::display() const { SDL_RenderPresent(renderer_); }

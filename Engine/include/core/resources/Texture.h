@@ -32,9 +32,6 @@ protected:
   // Attributes
   SDL_Texture* texture_;
   RenderWindow* renderWindow_;
-
-private:
-  std::string BASE_TEXTURE_DIR = "../res/";
  };
 
 #endif //TEXTURE_H

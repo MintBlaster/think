@@ -72,13 +72,13 @@ void log(const char *prefix, const char *msg, const TextColor textColor, Args...
     puts(textBuffer);
 }
 
-#define LOG_TRACE(msg, ...) log("TRACE: ", msg, TEXT_COLOR_GREEN, ##__VA_ARGS__)
-#define LOG_WARN(msg, ...) log("WARN: ", msg, TEXT_COLOR_YELLOW, ##__VA_ARGS__)
-#define LOG_ERROR(msg, ...) log("ERROR: ", msg, TEXT_COLOR_RED, ##__VA_ARGS__)
-#define ASSERT(x, msg, ...)                                                 \
+#define WHISPER(msg, ...) log("TRACE: ", msg, TEXT_COLOR_GREEN, ##__VA_ARGS__)
+#define CAUTION(msg, ...) log("WARN: ", msg, TEXT_COLOR_YELLOW, ##__VA_ARGS__)
+#define PANIC(msg, ...) log("ERROR: ", msg, TEXT_COLOR_RED, ##__VA_ARGS__)
+#define CHECK(x, msg, ...)                                                 \
 {                                                                           \
     if (!(x)) {                                                             \
-        LOG_ERROR(msg, ##__VA_ARGS__);                                          \
+        PANIC(msg, ##__VA_ARGS__);                                          \
         DEBUG_BREAK();                                                      \
     }                                                                       \
 }

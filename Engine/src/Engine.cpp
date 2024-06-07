@@ -2,15 +2,12 @@
 // Created by manish on 03-06-2024.
 //
 
-#include "Game.h"
 #include <SDL_image.h>
-#include <chrono>
-#include "EntityManager.h"
+#include "Engine.h"
 #include "ResourceManager.h"
+#include "SceneManager.h"
 #include "ServiceLocator.h"
-#include "components/Transform.h"
-#include "think-lib.h"
-
+#include "UDebug.h"
 #include "UTime.h"
 
 // #############################################################################
@@ -21,37 +18,28 @@
 // Constructor and Destructors
 // -----------------------------------------------------------------------------
 
-Game::Game() : isRunning_(false), event_(), window_("Think", 1280, 720), rocket1(nullptr), rocket2(nullptr) {}
+Engine::Engine() : isRunning_(false), event_(), window_("Think", 1280, 720) {}
 
-Game::~Game() { cleanUp(); }
+Engine::~Engine() { cleanUp(); }
 
 // -----------------------------------------------------------------------------
 // Initialization
 // -----------------------------------------------------------------------------
 
-bool Game::init() {
+bool Engine::init() {
   if (SDL_Init(SDL_INIT_VIDEO) != 0) {
-    LOG_ERROR("SDL_Init Error: %s", SDL_GetError());
+    PANIC("SDL_Init Error: %s", SDL_GetError());
     return false;
   }
   if (IMG_Init(IMG_INIT_PNG) == 0) {
-    LOG_ERROR("IMG_Init Error: %s", IMG_GetError());
+    PANIC("IMG_Init Error: %s", IMG_GetError());
     return false;
   }
 
   ServiceLocator::provideWindow(&window_);
 
-  rocket1 = std::make_unique<Rocket>();
-  rocket2 = std::make_unique<Rocket>();
-
-  rocket1->setFuelAmount(.5);
-  rocket1->setEngineThrust(.5);
-
-  rocket2->setFuelAmount(.0002);
-  rocket2->setEngineThrust(.00978);
-
   isRunning_ = true;
-  LOG_TRACE("Game initialization successful");
+  WHISPER("Game initialization successful");
 
   return true;
 }
@@ -60,7 +48,7 @@ bool Game::init() {
 // Game Loop
 // -----------------------------------------------------------------------------
 
-void Game::run() {
+void Engine::run() {
   if (!init()) {
     return;
   }
@@ -89,7 +77,7 @@ void Game::run() {
 // Event Processing
 // -----------------------------------------------------------------------------
 
-void Game::processEvents() {
+void Engine::processEvents() {
   while (SDL_PollEvent(&event_)) {
     if (event_.type == SDL_QUIT) {
       isRunning_ = false;
@@ -101,22 +89,22 @@ void Game::processEvents() {
 // Game State Update
 // -----------------------------------------------------------------------------
 
-void Game::physicsUpdate() {
-  EntityManager::getInstance().physicsUpdateEntities();
+void Engine::physicsUpdate() {
+  SceneManager::getInstance().getCurrentScene()->physicsUpdateEntities();
 }
 
 
-void Game::update() {
-  EntityManager::getInstance().updateEntities();
+void Engine::update() {
+  SceneManager::getInstance().getCurrentScene()->updateEntities();
 }
 
 // -----------------------------------------------------------------------------
 // Rendering
 // -----------------------------------------------------------------------------
 
-void Game::render() const {
+void Engine::render() const {
   window_.clear();
-  EntityManager::getInstance().renderEntities();
+  SceneManager::getInstance().getCurrentScene()->physicsUpdateEntities();
   window_.display();
 }
 
@@ -124,7 +112,7 @@ void Game::render() const {
 // Clean Up
 // -----------------------------------------------------------------------------
 
-void Game::cleanUp() const {
+void Engine::cleanUp() const {
   window_.cleanUp();
   SDL_Quit();
   IMG_Quit();

@@ -31,6 +31,8 @@ protected:
   // Attributes
   std::string name_;
   std::string path_;
+
+
 };
 
 #endif // RESOURCE_H
