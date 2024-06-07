@@ -7,11 +7,10 @@
 
 #pragma once
 
-#include <SDL_render.h>
-#include "Entity.h"
-#include "UMath.h"
-#include "components/EntityRenderer.h"
-#include "components/Transform.h"
+#include "../../include/core/Entity.h"
+#include "../../include/core/components/EntityRenderer.h"
+#include "../../include/core/components/Transform.h"
+#include "../../include/utils/UMath.h"
 
 // #############################################################################
 //                            Rocket Class Declaration
@@ -20,7 +19,7 @@
 class Rocket final : public Entity {
 public:
   // Constructor
-  Rocket();
+  Rocket(std::string& name);
 
   // Setters
   void setFuelAmount(float amount) { fuelAmount_ = amount; }
@@ -39,7 +38,6 @@ private:
   float engineThrust_ = 0;
   Vector2 velocity_;
   Vector2 position_;
-  SDL_Texture* texture_{};
   Transform* transform_{};
   EntityRenderer* entityRenderer_{};
 };

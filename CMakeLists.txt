@@ -8,9 +8,9 @@ set(CMAKE_MODULE_PATH ${CMAKE_SOURCE_DIR}/cmake_modules)
 set(SDL2_PATH "C:/Projects/cpp/_Stuff/SDL2-2.30.3/x86_64-w64-mingw32")
 set(SDL2_IMAGE_PATH "C:/Projects/cpp/_Stuff/SDL2_image-2.8.2/x86_64-w64-mingw32")
 
-# Set resource dir
-set(RESOURCE_DIR "../../res/")
-add_compile_definitions(RESOURCE_DIR="${RESOURCE_DIR}")
+# Enable Debug build
+set(CMAKE_BUILD_TYPE Debug)
+set(CMAKE_CXX_FLAGS_DEBUG "${CMAKE_CXX_FLAGS_DEBUG} -g -O0")
 
 # Find SDL2
 find_package(SDL2 REQUIRED)
@@ -36,7 +36,8 @@ file(GLOB_RECURSE ENGINE_SOURCES "Engine/src/*.cpp")
 file(GLOB_RECURSE GAME_SOURCES "game/*.cpp")
 
 # Combine all sources
-set(ALL_SOURCES ${ENGINE_SOURCES} ${GAME_SOURCES})
+set(ALL_SOURCES ${ENGINE_SOURCES} ${GAME_SOURCES}
+        Engine/include/core/components/EntityRenderer.h)
 
 # Add executable
 add_executable(think ${ALL_SOURCES})

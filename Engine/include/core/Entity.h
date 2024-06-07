@@ -21,7 +21,7 @@ class Component;
 class Entity {
 public:
   // Constructor & Destructor
-  explicit Entity();
+  explicit Entity(std::string name);
   virtual ~Entity();
 
   // Member Functions
@@ -30,17 +30,17 @@ public:
   virtual void render() { renderComponents(); }
 
   // Name
-  virtual void setName(const std::string& name) { name_ = name; }
+  virtual void setName(const std::string &name) { name_ = name; }
   virtual std::string getName() { return name_; }
 
   // Components
-  virtual void addComponent(std::unique_ptr<Component> component);
-  virtual void removeComponent(Component* component);
+  virtual void removeComponent(Component *component);
+  void satisfyDependencies();
   void updateComponents();
   void renderComponents();
 
-  template<typename T>
-  T* getComponent();
+  template <typename T> T *addComponent();
+  template <typename T> T *getComponent();
 
 protected:
   // Attributes
@@ -52,14 +52,30 @@ protected:
 //                               Templates Implementation
 // #############################################################################
 
+// Implementation of getComponent method
 template <typename T>
-T* Entity::getComponent() {
-  for (const auto& component : components_) {
-    if (T* castedComponent = dynamic_cast<T*>(component.get())) {
+T *Entity::getComponent() {
+  for (const auto &component : components_) {
+    if (T *castedComponent = dynamic_cast<T *>(component.get())) {
       return castedComponent;
     }
   }
   return nullptr;
+}
+
+// Implementation of addComponent method
+template <typename T>
+T *Entity::addComponent() {
+  // Ensure T is derived from Component
+  static_assert(std::is_base_of<Component, T>::value, "T must be derived from Component");
+
+  // Create a new component and add it to the vector
+  std::unique_ptr<T> component = std::make_unique<T>();
+  T *castedComponent = component.get();
+  castedComponent->setOwner(this); // Set the owner of the component
+  components_.push_back(std::move(component)); // Add the component to the vector
+
+  return castedComponent;
 }
 
 #endif // ENTITY_H

@@ -9,6 +9,7 @@
 #include "ServiceLocator.h"
 #include "UDebug.h"
 #include "UTime.h"
+#include "Game.h"
 
 // #############################################################################
 //                             Game Class Implementation
@@ -41,11 +42,15 @@ bool Engine::init() {
   isRunning_ = true;
   WHISPER("Game initialization successful");
 
+  SceneManager::getInstance().getCurrentScene()->init();
+
+  // --- >
+  GameInit();
   return true;
 }
 
 // -----------------------------------------------------------------------------
-// Game Loop
+// Engine Loop
 // -----------------------------------------------------------------------------
 
 void Engine::run() {
@@ -86,7 +91,7 @@ void Engine::processEvents() {
 }
 
 // -----------------------------------------------------------------------------
-// Game State Update
+// Engine State Update
 // -----------------------------------------------------------------------------
 
 void Engine::physicsUpdate() {
@@ -104,7 +109,7 @@ void Engine::update() {
 
 void Engine::render() const {
   window_.clear();
-  SceneManager::getInstance().getCurrentScene()->physicsUpdateEntities();
+  SceneManager::getInstance().getCurrentScene()->renderEntities();
   window_.display();
 }
 

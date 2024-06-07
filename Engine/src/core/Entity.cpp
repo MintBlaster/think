@@ -4,6 +4,7 @@
 
 #include "Entity.h"
 #include <algorithm>
+#include <utility>
 #include "Component.h"
 
 // #############################################################################
@@ -14,28 +15,25 @@
 // Constructor & Destructor
 // -----------------------------------------------------------------------------
 
-Entity::Entity() = default;
-
+Entity::Entity(std::string name) : name_(std::move(name)) {}
 Entity::~Entity() = default;
 
 // -----------------------------------------------------------------------------
 // Components
 // -----------------------------------------------------------------------------
-
-/// <summary> Adds a component to the entity. </summary>
-void Entity::addComponent(std::unique_ptr<Component> component) {
-  component->setOwner(this);
-  components_.push_back(std::move(component));
-}
-
 /// <summary> Removes a component from the entity. </summary>
-void Entity::removeComponent(Component* component) {
+void Entity::removeComponent(Component *component) {
   auto it = std::remove_if(components_.begin(), components_.end(),
-                           [component](const std::unique_ptr<Component>& e) {
-                               return e.get() == component;
+                           [component](const std::unique_ptr<Component> &e) {
+                             return e.get() == component;
                            });
   if (it != components_.end()) {
     components_.erase(it, components_.end());
+  }
+}
+void Entity::satisfyDependencies() {
+  for (const auto& component : components_) {
+    component->satisfyDependencies();
   }
 }
 

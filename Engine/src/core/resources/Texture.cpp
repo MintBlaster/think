@@ -5,6 +5,8 @@
 #include "../../../include/core/resources/Texture.h"
 #include "RenderWindow.h"
 
+#include <UDebug.h>
+
 // #############################################################################
 //                             Texture Class Implementation
 // #############################################################################
@@ -34,5 +36,6 @@ void Texture::setPath(const std::string &path) {
 
 /// <summary> It loads the texture. </summary>
 void Texture::loadTexture() {
-  texture_ = renderWindow_->loadTexture((std::string(RESOURCE_DIR) + path_).c_str());
+  std::string path = "C:/Projects/cpp/think/res/" + path_;
+  texture_ = renderWindow_->loadTexture(path.c_str());
 }

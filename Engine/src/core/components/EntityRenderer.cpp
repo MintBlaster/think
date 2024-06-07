@@ -7,6 +7,8 @@
 #include "ServiceLocator.h"
 #include "UDebug.h"
 
+#include <iostream>
+
 // #############################################################################
 //                       EntityRenderer Class Implementation
 // #############################################################################
@@ -24,7 +26,7 @@ EntityRenderer::EntityRenderer() : transform_(nullptr) {}
 // Gets transform to get the location, rotation and scale to render the texture.
 void EntityRenderer::satisfyDependencies() {
   if (owner_->getComponent<Transform>() == nullptr) {
-    owner_->addComponent(std::make_unique<Transform>());
+    owner_->addComponent<Transform>();
   }
   transform_ = owner_->getComponent<Transform>();
 }

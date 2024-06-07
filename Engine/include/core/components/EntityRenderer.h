@@ -21,7 +21,9 @@ public:
   explicit EntityRenderer();
 
   // Setter
-  void setTexture(const std::string& name) { textureName_ = name; }
+  void setTexture(const std::string& name) {
+    textureName_ = name;
+  }
 
 private:
   // Member Functions
