@@ -8,22 +8,20 @@
 #pragma once
 
 #include "Component.h"
-#include "components/Transform.h"
+#include "Transform2D.h"
 #include <string>
 
 // #############################################################################
 //                       EntityRenderer Class Declaration
 // #############################################################################
 
-class EntityRenderer : public Component {
+class TextureRenderer : public Component {
 public:
   // Constructor
-  explicit EntityRenderer();
+  explicit TextureRenderer();
 
   // Setter
-  void setTexture(const std::string& name) {
-    textureName_ = name;
-  }
+  void setTexture(const std::string& name) {textureName_ = name;}
 
 private:
   // Member Functions
@@ -32,7 +30,11 @@ private:
 
   // Attributes
   std::string textureName_;
-  Transform* transform_;
+  Transform2D* transform2d_;
+
+public:
+	float width;
+    float height;
 };
 
 #endif // ENTITYRENDERER_H

@@ -8,8 +8,8 @@
 #pragma once
 
 #include "../../include/core/Entity.h"
-#include "../../include/core/components/EntityRenderer.h"
-#include "../../include/core/components/Transform.h"
+#include "../../include/core/components/TextureRenderer.h"
+#include "../../include/core/components/Transform2D.h"
 #include "../../include/utils/UMath.h"
 
 // #############################################################################
@@ -19,7 +19,7 @@
 class Rocket final : public Entity {
 public:
   // Constructor
-  Rocket(std::string& name);
+  explicit Rocket(const std::string& name);
 
   // Setters
   void setFuelAmount(float amount) { fuelAmount_ = amount; }
@@ -38,8 +38,8 @@ private:
   float engineThrust_ = 0;
   Vector2 velocity_;
   Vector2 position_;
-  Transform* transform_{};
-  EntityRenderer* entityRenderer_{};
+  Transform2D* transform2d_{};
+  TextureRenderer* entityRenderer_{};
 };
 
 #endif // ROCKET_H

@@ -14,10 +14,10 @@
 //                        Transform Class Declaration
 // #############################################################################
 
-class Transform : public Component {
+class Transform2D : public Component {
 public:
   // Constructor
-  explicit Transform() = default;
+  explicit Transform2D() = default;
 
   // Getters and Setters
   void setPosition(float posX, float posY) { position_ = {posX, posY}; }

@@ -7,6 +7,7 @@
 
 #pragma once
 
+#include <UDebug.h>
 #include <string>
 
 // #############################################################################
@@ -21,7 +22,7 @@ public:
 
   // Setters
   virtual void setName(const std::string& name) { name_ = name; }
-  virtual void setPath(const std::string& path) { path_ = path; }
+  virtual void setPath(const std::string& path) {path_ = path;}
 
   // Getters
   [[nodiscard]] virtual std::string getName() const { return name_; }
@@ -29,6 +30,7 @@ public:
 
 protected:
   // Attributes
+  std::string BASE_RES_DIR = "C:/Projects/cpp/think/res/";
   std::string name_;
   std::string path_;
 

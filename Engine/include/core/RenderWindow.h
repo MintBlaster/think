@@ -5,29 +5,31 @@
 #ifndef RENDERWINDOW_H
 #define RENDERWINDOW_H
 
-#pragma once
-
+#include <GL/glew.h>
 #include <SDL.h>
-
-// #############################################################################
-//                       RenderWindow Class Declaration
-// #############################################################################
 
 class RenderWindow {
 public:
-  // Constructor
-  RenderWindow(const char *title, int width, int height);
+  RenderWindow(const char* title, int width, int height);
+  ~RenderWindow();
 
-  // Member Functions
-  SDL_Texture* loadTexture(const char *filePath) const;
-  void cleanUp() const;
+  void init();
   void clear() const;
   void display() const;
+  void renderTexture(GLuint textureID, float x, float y, float width,
+                     float height) const;
+  void loadShaders(const char *vertexShaderPath, const char *fragShaderPath);
+  static GLuint loadGLTexture(const char* filepath);
 
 private:
-  // Attributes
-  SDL_Window *window_;
-  SDL_Renderer *renderer_;
+  void setupRenderData();
+
+  SDL_Window* window_;
+  SDL_GLContext glContext_;
+  GLuint shaderProgram;
+  GLuint VAO, VBO, EBO;
+  int screenWidth, screenHeight;
+  GLuint texture;
 };
 
 #endif // RENDERWINDOW_H

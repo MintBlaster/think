@@ -3,19 +3,19 @@
 //
 
 #include "Rocket.h"
-
 #include "ResourceManager.h"
-#include "components/EntityRenderer.h"
-#include "components/Transform.h"
+#include "components/Transform2D.h"
+#include "components/TextureRenderer.h"
 
 // ----------------------------------------
 // Constructor & Destructor
 // ----------------------------------------
 
-Rocket::Rocket(std::string& name) : Entity(name), velocity_(0, 0) {
+class TextureRenderer;
+Rocket::Rocket(const std::string& name) : Entity(name), velocity_(0, 0) {
   // Add Transform and EntityRenderer components
-  transform_ = addComponent<Transform>();
-  entityRenderer_ =addComponent<EntityRenderer>();
+  transform2d_ = addComponent<Transform2D>();
+  entityRenderer_ =addComponent<TextureRenderer>();
 
   // Load the rocket texture
   ResourceManager& resourceManager = ResourceManager::getInstance();
@@ -23,7 +23,7 @@ Rocket::Rocket(std::string& name) : Entity(name), velocity_(0, 0) {
   resourceManager.loadTexture("rocket_Texture", "gfx/idle_0.png");
   entityRenderer_->setTexture("rocket_Texture");
 
-  transform_->setPosition(50, 50);
+  transform2d_->setPosition(50, 50);
 }
 
 // ----------------------------------------
@@ -31,7 +31,7 @@ Rocket::Rocket(std::string& name) : Entity(name), velocity_(0, 0) {
 // ----------------------------------------
 
 void Rocket::physicsUpdate() {
-  transform_->setPosition(position_);
+  transform2d_->setPosition(position_);
   if (fuelAmount_ > 0) {
     applyThrust(Vector2(1, 1));
     position_ = position_ + velocity_;

@@ -30,8 +30,8 @@ inline void GameInit() {
 
   auto* rocket1 = testScene->addEntity<Rocket>("Rocket 1");
 
-  rocket1->setFuelAmount(5);
-  rocket1->setEngineThrust(2);
+  rocket1->setFuelAmount(4);
+  rocket1->setEngineThrust(.5);
 
   auto* rocket2 = testScene->addEntity<Rocket>("Rocket 2");
 

@@ -26,8 +26,8 @@ public:
 
   // Member Functions
   void loadTexture(const std::string &name, const std::string &path);
-  [[nodiscard]] SDL_Texture *getTexture(const std::string &name);
-  [[nodiscard]] SDL_Texture *loadAndGetTexture(const std::string &name, const std::string &path);
+  [[nodiscard]] GLuint getTexture(const std::string &name);
+  [[nodiscard]] GLuint loadAndGetTexture(const std::string &name, const std::string &path);
   void unloadTexture(const std::string &name);
 
 private:

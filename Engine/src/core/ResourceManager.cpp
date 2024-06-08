@@ -35,24 +35,27 @@ void ResourceManager::loadTexture(const std::string &name, const std::string &pa
 }
 
 /// <summary> It returs the texture using texture's name from resource manager. </summary>
-SDL_Texture *ResourceManager::getTexture(const std::string &name) {
+GLuint ResourceManager::getTexture(const std::string &name) {
   if (const auto it = textures_.find(name); it != textures_.end()) {
     return it->second->getTexture();
   }
-  return nullptr;
+  return NULL;
 }
 
 /// <summary> It will load and returs the texture from resource manager. </summary>
-SDL_Texture *ResourceManager::loadAndGetTexture(const std::string &name, const std::string &path) {
+GLuint ResourceManager::loadAndGetTexture(const std::string &name, const std::string &path) {
   loadTexture(name, path);
   return getTexture(name);
 }
 
 /// <summary> It will destroy the texture. </summary>
+/// <summary> It will destroy the texture. </summary>
 void ResourceManager::unloadTexture(const std::string &name) {
   auto it = textures_.find(name);
   if (it != textures_.end()) {
-    SDL_DestroyTexture(it->second->getTexture());
+    if (GLuint textureID = it->second->getTexture()) {
+      glDeleteTextures(1, &textureID);
+    }
     textures_.erase(it);
   }
 }

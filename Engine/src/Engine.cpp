@@ -38,6 +38,9 @@ bool Engine::init() {
   }
 
   ServiceLocator::provideWindow(&window_);
+  window_.init();
+
+  window_.loadShaders("shaders/texture_shader.vert", "shaders/texture_shader.frag");
 
   isRunning_ = true;
   WHISPER("Game initialization successful");
@@ -118,7 +121,6 @@ void Engine::render() const {
 // -----------------------------------------------------------------------------
 
 void Engine::cleanUp() const {
-  window_.cleanUp();
   SDL_Quit();
   IMG_Quit();
 }

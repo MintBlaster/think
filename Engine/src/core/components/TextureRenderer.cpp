@@ -2,12 +2,10 @@
 // Created by manish on 04-06-2024.
 //
 
-#include "components/EntityRenderer.h"
+#include "components/TextureRenderer.h"
 #include "ResourceManager.h"
 #include "ServiceLocator.h"
-#include "UDebug.h"
-
-#include <iostream>
+#include "components/Transform2D.h"
 
 // #############################################################################
 //                       EntityRenderer Class Implementation
@@ -17,18 +15,19 @@
 // Constructor
 // -----------------------------------------------------------------------------
 
-EntityRenderer::EntityRenderer() : transform_(nullptr) {}
+TextureRenderer::TextureRenderer()
+    : transform2d_(nullptr), width(64), height(64) {}
 
 // -----------------------------------------------------------------------------
 // Dependencies Satisfaction
 // -----------------------------------------------------------------------------
 
-// Gets transform to get the location, rotation and scale to render the texture.
-void EntityRenderer::satisfyDependencies() {
-  if (owner_->getComponent<Transform>() == nullptr) {
-    owner_->addComponent<Transform>();
+// Gets Transform2d to get the location, rotation and scale to render the texture.
+void TextureRenderer::satisfyDependencies() {
+  if (owner_->getComponent<Transform2D>() == nullptr) {
+    owner_->addComponent<Transform2D>();
   }
-  transform_ = owner_->getComponent<Transform>();
+  transform2d_ = owner_->getComponent<Transform2D>();
 }
 
 // -----------------------------------------------------------------------------
@@ -36,14 +35,11 @@ void EntityRenderer::satisfyDependencies() {
 // -----------------------------------------------------------------------------
 
 // It retrieves texture from the resource manager and renders it.
-void EntityRenderer::render() {
-    SDL_Texture* texture = ResourceManager::getInstance().getTexture(textureName_);
-    if (texture == nullptr) return;
-    const SDL_Rect dstRect = {static_cast<int>(transform_->getPosition().x),
-                              static_cast<int>(transform_->getPosition().y), 64, 64};
-
-    // Render the texture
-    if (SDL_RenderCopy(ServiceLocator::getRenderer(), texture, nullptr, &dstRect) != 0) {
-      PANIC("SDL_RenderCopy Error: %s", SDL_GetError());
-    }
+void TextureRenderer::render() {
+    GLuint texture = ResourceManager::getInstance().getTexture(textureName_);
+    if (!texture) return;
+    Vector2 position = transform2d_->getPosition();
+    ServiceLocator::getWindow()->renderTexture(
+        texture, transform2d_->getPosition().x, transform2d_->getPosition().y,
+        width, height);
 }

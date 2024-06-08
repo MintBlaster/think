@@ -7,7 +7,6 @@
 
 #include "RenderWindow.h"
 #include "Resource.h"
-#include <SDL_render.h>
 
 // #############################################################################
 //                           Texture Class Declaration
@@ -22,7 +21,7 @@ public:
   void setPath(const std::string& path) override;
 
   // Getter
-  [[nodiscard]] SDL_Texture* getTexture() const { return texture_; }
+  [[nodiscard]] GLuint getTexture() const { return textureID_; }
 
 private:
   // Helper Function
@@ -30,8 +29,10 @@ private:
 
 protected:
   // Attributes
-  SDL_Texture* texture_;
+  int width_ = 64, height_ = 64, nrChannels_ = 1;
+  GLuint textureID_{};
   RenderWindow* renderWindow_;
+public:
  };
 
 #endif //TEXTURE_H
