@@ -11,18 +11,20 @@
 // #############################################################################
 
 #ifdef _WIN32
-#define DEBUG_BREAK() __debugbreak()
+#    define DEBUG_BREAK() __debugbreak()
 #elif __linux__
-#define DEBUG_BREAK() __builtin_debugtrap()
+#    define DEBUG_BREAK() __builtin_debugtrap()
 #elif __APPLE__
-#define DEBUG_BREAK() __builtin_trap()
+#    define DEBUG_BREAK() __builtin_trap()
 #endif
 
 // #############################################################################
 //                           Logging
 // #############################################################################
 
-enum TextColor {
+// Enum for text colors
+enum TextColor
+{
     TEXT_COLOR_BLACK,
     TEXT_COLOR_RED,
     TEXT_COLOR_GREEN,
@@ -42,9 +44,11 @@ enum TextColor {
     TEXT_COLOR_COUNT
 };
 
+// Utility function for logging
 template <typename... Args>
-void log(const char *prefix, const char *msg, const TextColor textColor, Args... args) {
-    static const char *TextColorTable[TEXT_COLOR_COUNT] = {
+void log(const char* prefix, const char* msg, const TextColor textColor, Args... args)
+{
+    static const char* TextColorTable[TEXT_COLOR_COUNT] = {
         "\x1b[30m", // TEXT_COLOR_BLACK
         "\x1b[31m", // TEXT_COLOR_RED
         "\x1b[32m", // TEXT_COLOR_GREEN
@@ -72,13 +76,15 @@ void log(const char *prefix, const char *msg, const TextColor textColor, Args...
     puts(textBuffer);
 }
 
+// Macros for different log levels
 #define WHISPER(msg, ...) log("TRACE: ", msg, TEXT_COLOR_GREEN, ##__VA_ARGS__)
 #define CAUTION(msg, ...) log("WARN: ", msg, TEXT_COLOR_YELLOW, ##__VA_ARGS__)
 #define PANIC(msg, ...) log("ERROR: ", msg, TEXT_COLOR_RED, ##__VA_ARGS__)
-#define CHECK(x, msg, ...)                                                 \
-{                                                                           \
-    if (!(x)) {                                                             \
-        PANIC(msg, ##__VA_ARGS__);                                          \
-        DEBUG_BREAK();                                                      \
-    }                                                                       \
-}
+#define CHECK(x, msg, ...)             \
+    {                                  \
+        if (!(x))                      \
+        {                              \
+            PANIC(msg, ##__VA_ARGS__); \
+            DEBUG_BREAK();             \
+        }                              \
+    }

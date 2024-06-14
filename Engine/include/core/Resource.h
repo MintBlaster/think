@@ -14,27 +14,26 @@
 //                           Resource Class Declaration
 // #############################################################################
 
-class Resource {
+class Resource
+{
 public:
-  // Constructor & Destructor
-  Resource(std::string name, std::string path);
-  virtual ~Resource() = default;
+    // Constructor & Destructor
+             Resource(std::string name, std::string path);
+    virtual ~Resource() = default;
 
-  // Setters
-  virtual void setName(const std::string& name) { name_ = name; }
-  virtual void setPath(const std::string& path) {path_ = path;}
+    // Setters
+    virtual void setName(const std::string& name) { name_ = name; }
+    virtual void setPath(const std::string& path) { path_ = path; }
 
-  // Getters
-  [[nodiscard]] virtual std::string getName() const { return name_; }
-  [[nodiscard]] virtual std::string getPath() const { return path_; }
+    // Getters
+    [[nodiscard]] virtual std::string getName() const { return name_; }
+    [[nodiscard]] virtual std::string getPath() const { return path_; }
 
 protected:
-  // Attributes
-  std::string BASE_RES_DIR = "C:/Projects/cpp/think/res/";
-  std::string name_;
-  std::string path_;
-
-
+    // Attributes
+    std::string BASE_RES_DIR = "C:/Projects/cpp/think/res/";
+    std::string name_;
+    std::string path_;
 };
 
 #endif // RESOURCE_H

@@ -8,6 +8,7 @@
 #pragma once
 
 #include "Component.h"
+
 #include <memory>
 #include <string>
 #include <vector>
@@ -18,34 +19,37 @@ class Component;
 //                               Entity Class Declaration
 // #############################################################################
 
-class Entity {
+class Entity
+{
 public:
-  // Constructor & Destructor
-  explicit Entity(std::string name);
-  virtual ~Entity();
+    // Constructor & Destructor
+    explicit Entity(std::string name);
+    virtual ~Entity();
 
-  // Member Functions
-  virtual void physicsUpdate() {}
-  virtual void update() { updateComponents(); }
-  virtual void render() { renderComponents(); }
+    // Member Functions
+    virtual void physicsUpdate() {}
+    virtual void update() { updateComponents(); }
+    virtual void render() { renderComponents(); }
 
-  // Name
-  virtual void setName(const std::string &name) { name_ = name; }
-  virtual std::string getName() { return name_; }
+    // Name
+    virtual void        setName(const std::string& name) { name_ = name; }
+    virtual std::string getName() { return name_; }
 
-  // Components
-  virtual void removeComponent(Component *component);
-  void satisfyDependencies();
-  void updateComponents();
-  void renderComponents();
+    // Components
+    virtual void removeComponent(Component* component);
+    void         satisfyDependencies();
+    void         updateComponents();
+    void         renderComponents();
 
-  template <typename T> T *addComponent();
-  template <typename T> T *getComponent();
+    template <typename T>
+    T* addComponent();
+    template <typename T>
+    T* getComponent();
 
 protected:
-  // Attributes
-  std::string name_;
-  std::vector<std::unique_ptr<Component>> components_;
+    // Attributes
+    std::string                             name_;
+    std::vector<std::unique_ptr<Component>> components_;
 };
 
 // #############################################################################
@@ -54,28 +58,32 @@ protected:
 
 // Implementation of getComponent method
 template <typename T>
-T *Entity::getComponent() {
-  for (const auto &component : components_) {
-    if (T *castedComponent = dynamic_cast<T *>(component.get())) {
-      return castedComponent;
+T* Entity::getComponent()
+{
+    for (const auto& component : components_)
+    {
+        if (T* castedComponent = dynamic_cast<T*>(component.get()))
+        {
+            return castedComponent;
+        }
     }
-  }
-  return nullptr;
+    return nullptr;
 }
 
 // Implementation of addComponent method
 template <typename T>
-T *Entity::addComponent() {
-  // Ensure T is derived from Component
-  static_assert(std::is_base_of<Component, T>::value, "T must be derived from Component");
+T* Entity::addComponent()
+{
+    // Ensure T is derived from Component
+    static_assert(std::is_base_of<Component, T>::value, "T must be derived from Component");
 
-  // Create a new component and add it to the vector
-  std::unique_ptr<T> component = std::make_unique<T>();
-  T *castedComponent = component.get();
-  castedComponent->setOwner(this); // Set the owner of the component
-  components_.push_back(std::move(component)); // Add the component to the vector
+    // Create a new component and add it to the vector
+    std::unique_ptr<T> component       = std::make_unique<T>();
+    T*                 castedComponent = component.get();
+    castedComponent->setOwner(this);             // Set the owner of the component
+    components_.push_back(std::move(component)); // Add the component to the vector
 
-  return castedComponent;
+    return castedComponent;
 }
 
 #endif // ENTITY_H

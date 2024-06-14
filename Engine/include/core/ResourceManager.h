@@ -8,6 +8,7 @@
 #pragma once
 
 #include "resources/Texture.h"
+
 #include <memory>
 #include <unordered_map>
 
@@ -15,27 +16,28 @@
 //                       ResourceManager Class Declaration
 // #############################################################################
 
-class ResourceManager {
+class ResourceManager
+{
 public:
-  // Singleton
-  static ResourceManager& getInstance();
+    // Singleton
+    static ResourceManager& getInstance();
 
-  // Deleted Constructors
-  ResourceManager(const ResourceManager&) = delete;
-  ResourceManager& operator=(const ResourceManager&) = delete;
+    // Deleted Constructors
+                     ResourceManager(const ResourceManager&) = delete;
+    ResourceManager& operator=(const ResourceManager&)       = delete;
 
-  // Member Functions
-  void loadTexture(const std::string &name, const std::string &path);
-  [[nodiscard]] GLuint getTexture(const std::string &name);
-  [[nodiscard]] GLuint loadAndGetTexture(const std::string &name, const std::string &path);
-  void unloadTexture(const std::string &name);
+    // Member Functions
+    void                 loadTexture(const std::string& name, const std::string& path);
+    [[nodiscard]] GLuint getTexture(const std::string& name);
+    [[nodiscard]] GLuint loadAndGetTexture(const std::string& name, const std::string& path);
+    void                 unloadTexture(const std::string& name);
 
 private:
-  // Constructor
-  ResourceManager() = default;
+    // Constructor
+    ResourceManager() = default;
 
-  // Attributes
-  std::unordered_map<std::string, std::unique_ptr<Texture>> textures_;
+    // Attributes
+    std::unordered_map<std::string, std::unique_ptr<Texture>> textures_;
 };
 
 #endif // RESOURCEMANAGER_H

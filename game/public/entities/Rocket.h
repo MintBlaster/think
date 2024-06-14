@@ -16,30 +16,31 @@
 //                            Rocket Class Declaration
 // #############################################################################
 
-class Rocket final : public Entity {
+class Rocket final : public Entity
+{
 public:
-  // Constructor
-  explicit Rocket(const std::string& name);
+    // Constructor
+    explicit Rocket(const std::string& name);
 
-  // Setters
-  void setFuelAmount(float amount) { fuelAmount_ = amount; }
-  void setEngineThrust(float thrust) { engineThrust_ = thrust; }
+    // Setters
+    void setFuelAmount(float amount) { fuelAmount_ = amount; }
+    void setEngineThrust(float thrust) { engineThrust_ = thrust; }
 
 private:
-  // Physics update function override
-  void physicsUpdate() override;
-  // Update function override
-  void update() override;
-  // Apply thrust function
-  void applyThrust(const Vector2& direction);
+    // Physics update function override
+    void physicsUpdate() override;
+    // Update function override
+    void update() override;
+    // Apply thrust function
+    void applyThrust(const Vector2& direction);
 
-  // Attributes
-  float fuelAmount_ = 0;
-  float engineThrust_ = 0;
-  Vector2 velocity_;
-  Vector2 position_;
-  Transform2D* transform2d_{};
-  TextureRenderer* entityRenderer_{};
+    // Attributes
+    float            fuelAmount_   = 0;
+    float            engineThrust_ = 0;
+    Vector2          velocity_;
+    Vector2          position_;
+    Transform2D*     transform2d_ {};
+    TextureRenderer* entityRenderer_ {};
 };
 
 #endif // ROCKET_H

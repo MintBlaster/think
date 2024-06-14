@@ -3,9 +3,11 @@
 //
 
 #include "Entity.h"
+
+#include "Component.h"
+
 #include <algorithm>
 #include <utility>
-#include "Component.h"
 
 // #############################################################################
 //                             Entity Class Implementation
@@ -15,38 +17,45 @@
 // Constructor & Destructor
 // -----------------------------------------------------------------------------
 
-Entity::Entity(std::string name) : name_(std::move(name)) {}
+Entity:: Entity(std::string name) : name_(std::move(name)) {}
 Entity::~Entity() = default;
 
 // -----------------------------------------------------------------------------
 // Components
 // -----------------------------------------------------------------------------
 /// <summary> Removes a component from the entity. </summary>
-void Entity::removeComponent(Component *component) {
-  auto it = std::remove_if(components_.begin(), components_.end(),
-                           [component](const std::unique_ptr<Component> &e) {
-                             return e.get() == component;
-                           });
-  if (it != components_.end()) {
-    components_.erase(it, components_.end());
-  }
+void Entity::removeComponent(Component* component)
+{
+    auto it = std::remove_if(components_.begin(), components_.end(), [component](const std::unique_ptr<Component>& e) {
+        return e.get() == component;
+    });
+    if (it != components_.end())
+    {
+        components_.erase(it, components_.end());
+    }
 }
-void Entity::satisfyDependencies() {
-  for (const auto& component : components_) {
-    component->satisfyDependencies();
-  }
+void Entity::satisfyDependencies()
+{
+    for (const auto& component : components_)
+    {
+        component->satisfyDependencies();
+    }
 }
 
 /// <summary> Update all components within this entity. </summary>
-void Entity::updateComponents() {
-  for (const auto& component : components_) {
-    component->update();
-  }
+void Entity::updateComponents()
+{
+    for (const auto& component : components_)
+    {
+        component->update();
+    }
 }
 
 /// <summary> Render all components within this entity. </summary>
-void Entity::renderComponents() {
-  for (const auto& component : components_) {
-    component->render();
-  }
+void Entity::renderComponents()
+{
+    for (const auto& component : components_)
+    {
+        component->render();
+    }
 }

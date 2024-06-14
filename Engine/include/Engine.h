@@ -7,8 +7,6 @@
 
 #pragma once
 
-#include <SDL.h>
-#include "Engine.h"
 #include "core/RenderWindow.h"
 
 class EntityManager;
@@ -19,31 +17,31 @@ class Component;
 //                           Game Class Declaration
 // #############################################################################
 
-class Engine {
-  public:
-  // Constructor & Destructor
-  Engine();
-  ~Engine();
+class Engine
+{
+public:
+    // Constructor & Destructor
+    Engine();
+    ~Engine();
 
-  // Member Functions
-  void run();
+    // Member Functions
+    void run();
 
-  private:
-  // Helper Functions
-  void physicsUpdate();
-  void processEvents();
-  void update();
-  void render() const;
-  bool init();
-  void cleanUp() const;
+private:
+    // Helper Functions
+    void physicsUpdate();
+    void processEvents();
+    void update();
+    void render() const;
+    bool init();
+    void cleanUp() const;
 
-  // constants
-  const float FIXED_UPDATE_PER_SECONDS = 30.0f;
+    // constants
+    const float FIXED_UPDATE_PER_SECONDS = 30.0f;
 
-  // Attributes
-  bool isRunning_;
-  SDL_Event event_;
-  RenderWindow window_;
+    // Attributes
+    bool         isRunning_ {};
+    RenderWindow window_ {"Think", 1280, 720};
 };
 
 #endif // GAME_H

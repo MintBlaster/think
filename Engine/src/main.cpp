@@ -1,9 +1,10 @@
 #include "../include/Engine.h"
 
-int main(int argc, char *argv[]) {
+int main(int argc, char* argv[])
+{
 
-  Engine engine;
-  engine.run();
+    Engine engine;
+    engine.run();
 
-  return 0;
+    return 0;
 }

@@ -9,31 +9,33 @@
 
 #include "Component.h"
 #include "Transform2D.h"
+
 #include <string>
 
 // #############################################################################
 //                       EntityRenderer Class Declaration
 // #############################################################################
 
-class TextureRenderer : public Component {
+class TextureRenderer : public Component
+{
 public:
-  // Constructor
-  explicit TextureRenderer();
+    // Constructor
+    explicit TextureRenderer();
 
-  // Setter
-  void setTexture(const std::string& name) {textureName_ = name;}
+    // Setter
+    void setTexture(const std::string& name) { textureName_ = name; }
 
 private:
-  // Member Functions
-  void satisfyDependencies() override;
-  void render() override;
+    // Member Functions
+    void satisfyDependencies() override;
+    void render() override;
 
-  // Attributes
-  std::string textureName_;
-  Transform2D* transform2d_;
+    // Attributes
+    std::string  textureName_;
+    Transform2D* transform2d_;
 
 public:
-	float width;
+    float width;
     float height;
 };
 

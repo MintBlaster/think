@@ -15,28 +15,29 @@
 //                 Orthographic Camera2D Declaration
 // #############################################################################
 
-class OrthographicCamera2D : public Component {
+class OrthographicCamera2D : public Component
+{
 public:
-  // Constructor
-  OrthographicCamera2D(float screenWidth, float screenHeight);
+    // Constructor
+    OrthographicCamera2D(float screenWidth, float screenHeight);
 
-  // Getters
-  Matrix4 getViewMatrix() const;
-  SDL_Rect getViewRect() const;
+    // Getters
+    Matrix4  getViewMatrix() const;
+    SDL_Rect getViewRect() const;
 
-  // Setters
-  void setPosition(const Vector2& newPosition);
-  void setZoom(float newZoom);
+    // Setters
+    void setPosition(const Vector2& newPosition);
+    void setZoom(float newZoom);
 
-  // Member Functions
-  void move(const Vector2& delta);
-  void update(const SDL_Rect& target);
+    // Member Functions
+    void move(const Vector2& delta);
+    void update(const SDL_Rect& target);
 
 private:
-  // Attributes
-  float zoom;
-  Vector2 dimensions;
-  Vector2 position;
+    // Attributes
+    float   zoom = 1.0f;
+    Vector2 dimensions;
+    Vector2 position {0, 0};
 };
 
 #endif // CAMERA_H
