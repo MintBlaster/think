@@ -4,28 +4,37 @@
 
 #include "Rocket.h"
 
+#include "PlayerInput.h"
 #include "ResourceManager.h"
 #include "components/TextureRenderer.h"
 #include "components/Transform2D.h"
+
+class TextureRenderer;
 
 // ----------------------------------------
 // Constructor & Destructor
 // ----------------------------------------
 
-class TextureRenderer;
 Rocket::Rocket(const std::string& name) : Entity(name)
 {
     // Add Transform and EntityRenderer components
-    transform2d_    = addComponent<Transform2D>();
-    entityRenderer_ = addComponent<TextureRenderer>();
+    transform2d_    = getOrAddComponent<Transform2D>();
+    entityRenderer_ = getOrAddComponent<TextureRenderer>();
 
     // Load the rocket texture
     ResourceManager& resourceManager = ResourceManager::getInstance();
-
-    resourceManager.loadTexture("rocket_Texture", "gfx/idle_0.png");
-    entityRenderer_->setTexture("rocket_Texture");
-
     transform2d_->setPosition(50, 50);
+}
+
+void Rocket::init()
+{
+
+    if (getComponent<PlayerInput>())
+    {
+        isPlayerInput = true;
+    }
+    else
+        isPlayerInput = false;
 }
 
 // ----------------------------------------
@@ -38,11 +47,23 @@ void Rocket::physicsUpdate()
     {
         applyThrust(Vector2(1, 1));
     }
+    else
+    {
+        velocity_.x = velocity_.x > 0 ? velocity_.x -= 1 : 0;
+        velocity_.y = velocity_.y > 0 ? velocity_.y -= 1 : 0;
+    }
+
+    transform2d_->setPosition(transform2d_->getPosition() + velocity_);
 }
 
 void Rocket::update()
 {
-    // Maybe one day something will be here.
+    Entity::update();
+
+    if (isPlayerInput)
+    {
+        moveInput_ = getComponent<PlayerInput>()->getMoveInput();
+    }
 }
 
 // ----------------------------------------
@@ -52,7 +73,7 @@ void Rocket::update()
 void Rocket::applyThrust(const Vector2& direction)
 {
     // Apply thrust in the given direction
-    velocity_.x += direction.x * engineThrust_;
-    velocity_.y += direction.y * engineThrust_;
+    velocity_.x += direction.x * engineThrust_ * moveInput_.x;
+    velocity_.y += direction.y * engineThrust_ * moveInput_.y;
     fuelAmount_ -= 0.1f; // Consume fuel
 }

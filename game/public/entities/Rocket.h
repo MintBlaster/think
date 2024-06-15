@@ -27,6 +27,7 @@ public:
     void setEngineThrust(float thrust) { engineThrust_ = thrust; }
 
 private:
+    void init() override;
     // Physics update function override
     void physicsUpdate() override;
     // Update function override
@@ -35,10 +36,11 @@ private:
     void applyThrust(const Vector2& direction);
 
     // Attributes
+    bool             isPlayerInput;
     float            fuelAmount_   = 0;
     float            engineThrust_ = 0;
     Vector2          velocity_;
-    Vector2          position_;
+    Vector2          moveInput_;
     Transform2D*     transform2d_ {};
     TextureRenderer* entityRenderer_ {};
 };

@@ -30,6 +30,8 @@ void TextureRenderer::satisfyDependencies()
         owner_->addComponent<Transform2D>();
     }
     transform2d_ = owner_->getComponent<Transform2D>();
+
+    transform2d_ = owner_->getOrAddComponent<Transform2D>();
 }
 
 // -----------------------------------------------------------------------------

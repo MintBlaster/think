@@ -37,6 +37,7 @@ void Scene::init()
 {
     for (const auto& entity : entities_)
     {
+        entity.second->init();
         entity.second->satisfyDependencies();
     }
 }

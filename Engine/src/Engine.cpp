@@ -54,10 +54,10 @@ bool Engine::init()
     isRunning_ = true;
     WHISPER("Game initialization successful");
 
-    SceneManager::getInstance().getCurrentScene()->init();
-
     // --- >
     GameInit();
+    SceneManager::getInstance().getCurrentScene()->init();
+
     return true;
 }
 

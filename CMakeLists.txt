@@ -44,6 +44,7 @@ include_directories(${SDL2_IMAGE_INCLUDE_DIR}
         game
         game/public
         game/public/entities
+        game/public/components
         third-party
 )
 

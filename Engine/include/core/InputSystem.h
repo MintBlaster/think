@@ -33,9 +33,10 @@ public:
     [[nodiscard]] bool keyPressed(std::string keyName);
     [[nodiscard]] bool keyReleased(std::string keyName);
 
+    [[nodiscard]] float   getAxis(std::string up, std::string down);
+    [[nodiscard]] Vector2 getAxis2D(std::string up, std::string right, std::string down, std::string left);
     // Mouse
     [[nodiscard]] Vector2 getMousePos();
-
     // helper
     [[nodiscard]] bool hasQuit();
 

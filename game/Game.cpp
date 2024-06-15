@@ -3,6 +3,7 @@
 // Created by manish on 07-06-2024.
 //
 
+#include "PlayerInput.h"
 #include "ResourceManager.h"
 #include "Scene.h"
 #include "SceneManager.h"
@@ -33,23 +34,24 @@ inline void CreateRockets(Scene* scene)
 {
     // Create Player Rocket
     auto playerRocket = scene->addEntity<Rocket>("Player Rocket");
+
+    playerRocket->addComponent<PlayerInput>();
     if (auto* playerRenderer = playerRocket->getComponent<TextureRenderer>())
     {
         playerRenderer->setTexture(PLAYER_TEXTURE_KEY);
     }
-    playerRocket->setFuelAmount(4);
-    playerRocket->setEngineThrust(0.5);
-
+    playerRocket->setFuelAmount(400);
+    playerRocket->setEngineThrust(.5);
     // Create Enemy Rocket
     auto enemyRocket = scene->addEntity<Rocket>("Enemy Rocket");
+
     if (auto* enemyRenderer = enemyRocket->getComponent<TextureRenderer>())
     {
         enemyRenderer->setTexture(ENEMY_TEXTURE_KEY);
     }
-    enemyRocket->setFuelAmount(3);
-    enemyRocket->setEngineThrust(1);
+    enemyRocket->setFuelAmount(200);
+    enemyRocket->setEngineThrust(.3);
 }
-
 // Main game initialization function
 
 inline void GameInit()
@@ -60,10 +62,9 @@ inline void GameInit()
 
     // Get the current scene
     Scene* testScene = sceneManager.getCurrentScene();
-    CHECK(testScene, "Test scene does not exist");
+
     // Initialize resources
     InitializeResources(resourceManager);
-
     // Create and configure rockets
     CreateRockets(testScene);
 }

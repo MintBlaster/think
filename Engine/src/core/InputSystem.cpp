@@ -101,6 +101,25 @@ bool InputSystem::keyReleased(std::string keyName)
     return false;
 }
 
+//  Get Axis
+// ----------------------------------------
+float InputSystem::getAxis(std::string up, std::string down)
+{
+    return keyDown(up) - keyDown(down);
+}
+
+Vector2 InputSystem::getAxis2D(std::string up, std::string left, std::string down, std::string right)
+{
+
+    // --> Vertical axis [ Y ]
+    float y = getAxis(up, down);
+
+    // --> Horizontal Axis [ X ]
+    float x = getAxis(right, left);
+
+    return Vector2(x, y);
+}
+
 //  Mouse
 // ----------------------------------------
 Vector2 InputSystem::getMousePos()

@@ -27,6 +27,7 @@ public:
     virtual ~Entity();
 
     // Member Functions
+    virtual void init() {};
     virtual void physicsUpdate() {}
     virtual void update() { updateComponents(); }
     virtual void render() { renderComponents(); }
@@ -45,6 +46,8 @@ public:
     T* addComponent();
     template <typename T>
     T* getComponent();
+    template <typename T>
+    T* getOrAddComponent();
 
 protected:
     // Attributes
@@ -84,6 +87,18 @@ T* Entity::addComponent()
     components_.push_back(std::move(component)); // Add the component to the vector
 
     return castedComponent;
+}
+
+template <typename T>
+T* Entity::getOrAddComponent()
+{
+
+    T* component = getComponent<T>();
+    if (component == nullptr)
+    {
+        component = addComponent<T>();
+    }
+    return component;
 }
 
 #endif // ENTITY_H

@@ -7,7 +7,6 @@
 #include "Component.h"
 
 #include <algorithm>
-#include <utility>
 
 // #############################################################################
 //                             Entity Class Implementation
@@ -17,7 +16,7 @@
 // Constructor & Destructor
 // -----------------------------------------------------------------------------
 
-Entity:: Entity(std::string name) : name_(std::move(name)) {}
+Entity::Entity(std::string name) : name_(name.c_str()) {}
 Entity::~Entity() = default;
 
 // -----------------------------------------------------------------------------
