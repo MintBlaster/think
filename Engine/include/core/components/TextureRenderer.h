@@ -5,6 +5,7 @@
 #ifndef ENTITYRENDERER_H
 #define ENTITYRENDERER_H
 
+#include "sol.hpp"
 #pragma once
 
 #include "Component.h"
@@ -27,16 +28,16 @@ public:
 
 private:
     // Member Functions
-    void satisfyDependencies() override;
+    void init() override;
     void render() override;
 
     // Attributes
     std::string  textureName_;
-    Transform2D* transform2d_;
+    Transform2D* transform2d_ = nullptr;
 
 public:
-    float width;
-    float height;
+    float width = 64;
+    float height = 64;
 };
 
 #endif // ENTITYRENDERER_H

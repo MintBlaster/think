@@ -5,12 +5,11 @@
 #ifndef INPUTSYSTEM_H
 #define INPUTSYSTEM_H
 
-#include "UMath.h"
-
 #pragma once
 
-#include "SDL_events.h"
+#include "UMath.h"
 
+#include <SDL_events.h>
 #include <string>
 
 // #############################################################################
@@ -38,12 +37,13 @@ public:
     // Mouse
     [[nodiscard]] Vector2 getMousePos();
     // helper
-    [[nodiscard]] bool hasQuit();
+    [[nodiscard]] bool hasQuit() const;
 
 private:
     // constructors and destructors
-    InputSystem();
+     InputSystem();
     ~InputSystem() = default;
+
     SDL_Event event_;
 
     // -> becuase there are 282 scanCode keys in SDL2.

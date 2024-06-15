@@ -2,8 +2,10 @@
 
 #include "../../include/core/SceneManager.h"
 
-#include <UDebug.h>
+#include "UDebug.h"
+
 #include <algorithm>
+#include <sol.hpp>
 
 // #############################################################################
 //                         Scene Manager Implementation
@@ -94,3 +96,4 @@ Scene* SceneManager::getScene(const std::string& name) const
     }
     return nullptr;
 }
+

@@ -61,4 +61,4 @@ T* Scene::addEntity(std::string name)
     return castedEntity;
 }
 
-#endif // SCENE_H
+#endif

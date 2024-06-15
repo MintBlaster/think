@@ -38,7 +38,6 @@ void Scene::init()
     for (const auto& entity : entities_)
     {
         entity.second->init();
-        entity.second->satisfyDependencies();
     }
 }
 
@@ -48,6 +47,7 @@ void Scene::physicsUpdateEntities()
 {
     for (const auto& entity : entities_)
     {
+        entity.second->physicsUpdateComponents();
         entity.second->physicsUpdate();
     }
 }
@@ -57,6 +57,7 @@ void Scene::updateEntities()
 {
     for (const auto& entity : entities_)
     {
+        entity.second->updateComponents();
         entity.second->update();
     }
 }

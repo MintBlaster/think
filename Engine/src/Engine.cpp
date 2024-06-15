@@ -35,6 +35,7 @@ Engine::~Engine()
 
 bool Engine::init()
 {
+    // SDL ->
     if (SDL_Init(SDL_INIT_VIDEO) != 0)
     {
         PANIC("SDL_Init Error: %s", SDL_GetError());
@@ -54,7 +55,6 @@ bool Engine::init()
     isRunning_ = true;
     WHISPER("Game initialization successful");
 
-    // --- >
     GameInit();
     SceneManager::getInstance().getCurrentScene()->init();
 

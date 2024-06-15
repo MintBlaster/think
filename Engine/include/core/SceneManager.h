@@ -5,7 +5,7 @@
 
 #include "../../include/core/Scene.h"
 
-#include <utility> // For std::pair
+#include <utility>
 #include <vector>
 
 // #############################################################################

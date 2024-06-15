@@ -29,8 +29,8 @@ public:
     // Member Functions
     virtual void init() {};
     virtual void physicsUpdate() {}
-    virtual void update() { updateComponents(); }
-    virtual void render() { renderComponents(); }
+    virtual void update() {}
+    virtual void render() {}
 
     // Name
     virtual void        setName(const std::string& name) { name_ = name; }
@@ -38,7 +38,8 @@ public:
 
     // Components
     virtual void removeComponent(Component* component);
-    void         satisfyDependencies();
+    void         initComponents();
+    void         physicsUpdateComponents();
     void         updateComponents();
     void         renderComponents();
 
@@ -78,7 +79,7 @@ template <typename T>
 T* Entity::addComponent()
 {
     // Ensure T is derived from Component
-    static_assert(std::is_base_of<Component, T>::value, "T must be derived from Component");
+    static_assert(std::is_base_of_v<Component, T>, "T must be derived from Component");
 
     // Create a new component and add it to the vector
     std::unique_ptr<T> component       = std::make_unique<T>();
@@ -101,4 +102,4 @@ T* Entity::getOrAddComponent()
     return component;
 }
 
-#endif // ENTITY_H
+#endif

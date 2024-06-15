@@ -7,6 +7,7 @@
 #include "Component.h"
 
 #include <algorithm>
+#include <utility>
 
 // #############################################################################
 //                             Entity Class Implementation
@@ -16,7 +17,7 @@
 // Constructor & Destructor
 // -----------------------------------------------------------------------------
 
-Entity::Entity(std::string name) : name_(name.c_str()) {}
+Entity:: Entity(std::string name) : name_(std::move(name)) {}
 Entity::~Entity() = default;
 
 // -----------------------------------------------------------------------------
@@ -33,11 +34,19 @@ void Entity::removeComponent(Component* component)
         components_.erase(it, components_.end());
     }
 }
-void Entity::satisfyDependencies()
+void Entity::initComponents()
 {
     for (const auto& component : components_)
     {
-        component->satisfyDependencies();
+        component->init();
+    }
+}
+
+void Entity::physicsUpdateComponents()
+{
+    for (const auto& component : components_)
+    {
+        component->physicsUpdate();
     }
 }
 

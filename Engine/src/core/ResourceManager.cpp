@@ -5,6 +5,7 @@
 #include "../../include/core/ResourceManager.h"
 
 #include "ServiceLocator.h"
+#include "sol.hpp"
 
 // #############################################################################
 //                       ResourceManager Class Implementation

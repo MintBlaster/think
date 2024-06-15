@@ -25,6 +25,8 @@ public:
     virtual ~Component() = default;
 
     // Member Functions
+    virtual void init() {}
+    virtual void physicsUpdate() {}
     virtual void update() {}
     virtual void render() {}
 
@@ -34,8 +36,6 @@ public:
     [[nodiscard]] Entity&             getOwner() const { return *owner_; }
     virtual void                      setName(std::string& name) { name_ = name; }
     [[nodiscard]] virtual std::string getName() { return name_; }
-
-    virtual void satisfyDependencies() {}
 
 protected:
     // Attributes

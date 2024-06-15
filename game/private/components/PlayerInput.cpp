@@ -7,7 +7,7 @@
 //                          Player Input Implementation
 // #############################################################################
 
-void PlayerInput::satisfyDependencies()
+void PlayerInput::init()
 {
     transform_ = owner_->getOrAddComponent<Transform2D>();
 }

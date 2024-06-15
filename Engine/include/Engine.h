@@ -37,7 +37,7 @@ private:
     void cleanUp() const;
 
     // constants
-    const float FIXED_UPDATE_PER_SECONDS = 30.0f;
+    const float FIXED_UPDATE_PER_SECONDS = 60.0f;
 
     // Attributes
     bool         isRunning_ {};

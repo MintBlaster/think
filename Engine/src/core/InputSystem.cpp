@@ -137,7 +137,7 @@ Vector2 InputSystem::getMousePos()
 
 //  Helper Functions
 // ----------------------------------------
-bool InputSystem::hasQuit()
+bool InputSystem::hasQuit() const
 {
     if (event_.type == SDL_QUIT)
     {

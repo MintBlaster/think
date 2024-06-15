@@ -16,21 +16,15 @@
 // Constructor
 // -----------------------------------------------------------------------------
 
-TextureRenderer::TextureRenderer() : transform2d_(nullptr), width(64), height(64) {}
+TextureRenderer::TextureRenderer() {}
 
 // -----------------------------------------------------------------------------
-// Dependencies Satisfaction
+// Initialize
 // -----------------------------------------------------------------------------
 
 // Gets Transform2d to get the location, rotation and scale to render the texture.
-void TextureRenderer::satisfyDependencies()
+void TextureRenderer::init()
 {
-    if (owner_->getComponent<Transform2D>() == nullptr)
-    {
-        owner_->addComponent<Transform2D>();
-    }
-    transform2d_ = owner_->getComponent<Transform2D>();
-
     transform2d_ = owner_->getOrAddComponent<Transform2D>();
 }
 

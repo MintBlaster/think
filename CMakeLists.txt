@@ -9,7 +9,6 @@ set(EXPORT_COMPILE_COMMANDS ON)
 # Set paths
 set(SDL2_PATH "C:/Projects/cpp/_Stuff/SDL2-2.30.30-VC")
 set(SDL2_IMAGE_PATH "C:/Projects/cpp/_Stuff/SDL2_image-2.8.2-VC")
-
 set(GLEW_PATH "C:/Projects/cpp/_Stuff/glew-2.1.0")
 set(STB_PATH "C:/Projects/cpp/_Stuff/STB")
 set(GLM_PATH "C:/Projects/cpp/_Stuff/glm")
@@ -45,7 +44,6 @@ include_directories(${SDL2_IMAGE_INCLUDE_DIR}
         game/public
         game/public/entities
         game/public/components
-        third-party
 )
 
 # Collect all .cpp files for the engine
@@ -63,4 +61,4 @@ add_executable(think ${ALL_SOURCES})
 # Link SDL2, SDL2_image, OpenGL, and GLEW libraries
 target_link_libraries(think ${SDL2_LIBRARY} ${SDL2_IMAGE_LIBRARY} ${OPENGL_LIBRARIES} ${GLEW_LIBRARY})
 
-target_compile_options(think PRIVATE -std=c++17)
+target_compile_options(think PRIVATE -std=c+20)

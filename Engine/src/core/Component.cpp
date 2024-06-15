@@ -21,6 +21,4 @@ void Component::setOwner(Entity* owner)
     {
         owner_ = owner;
     }
-
-    satisfyDependencies();
 }

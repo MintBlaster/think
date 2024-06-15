@@ -49,7 +49,7 @@ inline void CreateRockets(Scene* scene)
     {
         enemyRenderer->setTexture(ENEMY_TEXTURE_KEY);
     }
-    enemyRocket->setFuelAmount(200);
+    enemyRocket->setFuelAmount(20);
     enemyRocket->setEngineThrust(.3);
 }
 // Main game initialization function

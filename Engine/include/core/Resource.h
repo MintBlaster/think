@@ -18,7 +18,7 @@ class Resource
 {
 public:
     // Constructor & Destructor
-             Resource(std::string name, std::string path);
+    Resource(std::string name, std::string path);
     virtual ~Resource() = default;
 
     // Setters
@@ -28,6 +28,8 @@ public:
     // Getters
     [[nodiscard]] virtual std::string getName() const { return name_; }
     [[nodiscard]] virtual std::string getPath() const { return path_; }
+
+    // Bind to Lua
 
 protected:
     // Attributes

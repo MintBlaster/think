@@ -20,7 +20,7 @@ public:
 private:
     virtual void update() override;
 
-    virtual void satisfyDependencies() override;
+    virtual void init() override;
 
     Transform2D* transform_ {};
     Vector2      position_ {};

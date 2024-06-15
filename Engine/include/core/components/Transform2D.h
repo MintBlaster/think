@@ -5,6 +5,7 @@
 #ifndef TRANSFORM_H
 #define TRANSFORM_H
 
+#include "sol.hpp"
 #pragma once
 
 #include "Component.h"
@@ -21,11 +22,9 @@ public:
     explicit Transform2D() = default;
 
     // Getters and Setters
-    void                  setPosition(float posX, float posY) { position_ = {posX, posY}; }
-    void                  setPosition(Vector2 position) { position_ = position; }
-    [[nodiscard]] Vector2 getPosition() const { return position_; }
-
-    std::string getName() override { return "Transform"; }
+    void                  setPosition(float posX, float posY);
+    void                  setPosition(Vector2 position);
+    [[nodiscard]] Vector2 getPosition() const;
 
 private:
     // Attributes
